@@ -169,10 +169,10 @@ function addContactHTML() {
    return /*html*/ `
    <div class="addContactLogoContainer">
       <div class="closeMobile" onclick="closeContactCreation(), closeMobileDialogBackground()">
-        <img src="/assets/img/desktop/close_white.svg" alt="">
+        <img src="./assets/img/desktop/close_white.svg" alt="">
       </div>
       <div>
-        <img class="contactLogo" src="/assets/img/desktop/join-logo_navbar.svg" alt="">
+        <img class="contactLogo" src="./assets/img/desktop/join-logo_navbar.svg" alt="">
         <h1>Add contact</h1>
         <span>Tasks are better with a team!</span>
         <div class="vector5"></div>
@@ -237,10 +237,10 @@ function createEditContactDialogMobileHTML(array) {
    return /*html*/ `     
    <div class="editContactLogoContainer" onclick="dontClose(event)">
          <div class="closeMobile" onclick="closeMobileDialogBackground()">
-            <img src="/assets/img/desktop/close_white.svg" alt="">
+            <img src="./assets/img/desktop/close_white.svg" alt="">
          </div>
          <div>
-            <img class="contactLogo" src="/assets/img/desktop/join-logo_navbar.svg" alt="">
+            <img class="contactLogo" src="./assets/img/desktop/join-logo_navbar.svg" alt="">
             <div class="flexColumn">
                <h1>Edit contact</h1>
                <div class="vector5EditContact"></div>
@@ -254,7 +254,7 @@ function createEditContactDialogMobileHTML(array) {
          </div>
          <div class="addContactInputContainer2">
             <div class="close" onclick="closeContactCreation(), closeMobileDialogBackground()">
-               <img src="/assets/img/desktop/close.svg" alt="">
+               <img src="./assets/img/desktop/close.svg" alt="">
             </div>
             <form id="add-contact-form" class="form-input" onsubmit="saveEditedContact(${array.id});return false;" onload="removeEvent();return false" id="editContactCard" class="editContactCard">
                <div class="input-container">
@@ -305,7 +305,7 @@ function warningHTML(array) {
    return /*html*/ `
    <div class="editContactLogoContainer" onclick="dontClose(event)">
       <div>
-         <img class="contactLogo" src="/assets/img/desktop/join-logo_navbar.svg" alt="">
+         <img class="contactLogo" src="./assets/img/desktop/join-logo_navbar.svg" alt="">
       <div class="flexColumn">
          <h1 class="warningHeadline">Warning!</h1>
          <div class="vector5EditContact"></div>
@@ -319,7 +319,7 @@ function warningHTML(array) {
       </div>
          <div class="addContactInputContainer2">
             <div class="close" onclick="closeContactCreation(), closeMobileDialogBackground()">
-               <img src="/assets/img/desktop/close.svg" alt="">
+               <img src="./assets/img/desktop/close.svg" alt="">
             </div>
             <div>
                <h2>Attention! <br><br>
