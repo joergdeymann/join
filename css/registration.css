@@ -1,0 +1,111 @@
+.login-master {
+    opacity:1;
+}
+
+
+.main-logo {
+    transform: translate(calc(-50vw + 77px + 100px + 34px),calc(-50vh + 20px + 60px));
+    opacity: 1;
+    width: 100px;
+    height: 122px;
+}
+
+
+.login-card {
+    opacity: 1;
+}
+
+
+.input-area>div {
+    gap:0 !important;
+}
+
+
+.login-headline-before {
+    height:32px;
+    width: 32px;
+    margin-left: -32px;
+    margin-top: -32px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 42px;
+    cursor: pointer;
+}
+
+
+.login-headline-before>img {
+    content:url("../assets/img/desktop/blue-arrow.svg");
+    height: 20.74px;
+    width: 21.33px;
+    color: rgba(41, 171, 226, 1);
+}
+
+
+.login-headline-before>img:hover {
+    width: 23.93px;
+    height: 20.74px;
+}
+
+
+.login-headline-before:hover {
+    background: rgba(238, 238, 238, 1);
+}
+
+
+.login-headline {
+    width: 100%;
+}
+
+
+.login-headline-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.login-card>.input-area>.remember {
+    justify-content: center;
+    margin-left: 0;
+    align-items: center;
+}
+
+
+.login-card>.input-area>.remember>span {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19.2px;
+    color: rgba(168, 168, 168, 1);    
+}
+
+
+.privacy {
+    box-sizing: border-box;
+    padding-left: 2px;
+    color: rgba(41, 171, 226, 1);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19.2px;
+    justify-content: flex-start;
+    border-bottom: 1px solid transparent;
+    transform: translateY(1px);
+}
+
+
+.privacy:hover {
+    font-weight: 700px;
+    border-bottom: 2px solid rgba(41, 171, 226, 1);
+}
+
+
+.logo-position {
+    position:absolute;
+    opacity: 1;
+    width: 100.03px;
+    height: 121.97px;    
+    top: 60px; 
+    left: 70px; 
+    transform:none;
+}

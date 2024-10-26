@@ -1,0 +1,42 @@
+.selectBox {
+    position: relative;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+.selectBox:focus-within {
+    border: 1px solid #29abe2;
+}
+
+
+.selectBox select {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background: transparent;
+    appearance: none;
+    cursor: pointer;
+    color: #333;
+}
+
+ 
+.selectBox::after {
+    content: url("../assets/img/desktop/assign_to_arrow.svg");
+    color: #2a3647;
+    position: absolute;
+    right: 20px;
+}
+
+
+select,
+input {
+    outline:none;
+    font-weight: 400;
+    font-size: 20px;
+}

@@ -1,0 +1,140 @@
+.darkbutton,
+.whitebutton {
+    border: unset;
+    height: 48px;       /* vieleicht weglassen */
+    padding-left: 24px; /* eventuell auto/15px 24px */
+    padding-right: 24px; /* eventuell auto/15px 24px */
+    gap: 10px;
+    border-radius: 8px;
+    background-color: rgba(42, 54, 71, 1);
+    color: rgba(255, 255, 255, 1);
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 25.2px;
+    display: flex; 
+    justify-content: center;
+    align-items: center;  
+    white-space: nowrap;  
+    cursor: pointer;
+}
+
+
+.darkbutton:hover {
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    background-color: rgba(41, 171, 226, 1);
+    box-sizing: border-box;
+}
+
+.darkbutton:active {
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    background-color: rgba(9, 25, 49, 1);
+}
+
+.whitebutton {
+    border: 1px solid rgba(42, 54, 71, 1);
+    background-color: rgba(255, 255, 255, 1);
+    color: rgba(42, 54, 71, 1);
+    font-weight: 400;
+}
+
+.whitebutton:hover {
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(41, 171, 226, 1);
+    color: rgba(41, 171, 226, 1);
+}
+
+
+.whitebutton:active {
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(9, 25, 49, 1);
+    background-color: white;
+    color: rgba(9, 25, 49, 1);
+}
+
+
+/* Priority Buttons */
+input[type="radio"] {
+    display: none;
+}
+
+
+.priority input {
+   padding: 12px 21px 12px 21px;
+   border-radius: 10px;
+   border: 1px solid #d1d1d1;
+}
+
+
+.priority {
+   overflow:visible;
+   padding: 0px; /* 4*/
+}
+
+
+.priority .button-label {
+   box-sizing: border-box;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   width: 134px; /* lowererd cause scrollbar */
+   height: 56px;
+   /* padding: 16px 0px 16px 0px; /* widtgh + Height sollten fest sein */
+   gap: 8px;
+   border-radius: 10px;
+   background-color: white;
+   color: black;
+   cursor: pointer;
+   transition: background-color 0.1s;
+   font-size: 21px;
+   line-height: 25.2px;
+   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
+}
+
+
+.priority input[type="radio"]:checked + .button-label.urgent {
+   background-color: #ff3d00;
+   color: #ffffff;
+   font-weight: 700;
+   box-shadow: none;
+}
+
+
+.priority input[type="radio"]:checked + .button-label.urgent img {
+   content: url("../assets/img/desktop/prio_urgent_white.svg");
+}
+
+
+.priority input[type="radio"]:checked + .button-label.low img {
+   content: url("../assets/img/desktop/prio_low_white.svg");
+}
+
+
+.priority input[type="radio"]:checked + .button-label.medium img {
+   content: url("../assets/img/desktop/prio_medium_white.svg");
+}
+
+
+.priority input[type="radio"]:checked + .button-label.medium {
+   background-color: #ffc107;
+   color: #ffffff;
+   font-weight: 700;
+   box-shadow: none;
+}
+
+
+.priority input[type="radio"]:checked + .button-label.low {
+   background-color: #4caf50;
+   color: #ffffff;
+   font-weight: 700;
+   box-shadow: none;
+}
+
+
+.priority input[type="radio"]:hover:not(:checked) + .button-label {
+   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+
+input[type="date"]:invalid {
+    color: #d1d1d1;
+}

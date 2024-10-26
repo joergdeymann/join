@@ -1,0 +1,39 @@
+.custom-checkbox {
+    border-radius: 50% !important;
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+
+.custom-checkbox input {
+   display: none; /* Verstecke die echte Checkbox */
+}
+
+
+.checkbox-image {
+    margin: 0;
+    box-sizing: border-box;
+    border-radius: 50% !important;
+    width: 24px;
+    height: 24px;
+    padding: 2px;
+    background-image: url('../assets/img/desktop/unchecked.svg'); /* Bild für die nicht aktivierte Checkbox */
+    background-size: contain;
+    transition:200ms linear;
+    transition-property: background,transform;
+}
+
+
+.custom-checkbox:hover .checkbox-image {
+    background-color: rgba(209, 209, 209, 0.5);
+    border-radius: 50% !important;
+    width: 24px; 
+    height: 24px;
+    transform: translate(-1px,-1px);
+}
+
+
+.custom-checkbox input:checked + .checkbox-image {
+    background-image: url('../assets/img/desktop/checked-add-task.svg'); /* Bild für die aktivierte Checkbox */
+}

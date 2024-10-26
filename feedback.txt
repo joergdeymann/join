@@ -1,0 +1,7 @@
+1. Der Button der ab eine bestimmte Größe verschwindet in Add Task, steht so im Figma drin, 
+wir haben uns an die Vorgaben gehalten
+2. Das Verschieben der Tasks hat auf dem IPad, IPhone und auf einem Android Handy funktioniert.
+Die Testumgebung ist da buggy.
+Wir haben jetzt für den Bug eine extra Funktion reingebracht damit es auch in Chrome verschiebbar ist.
+3. Könnt ihr uns vielleicht erklären was man machen kann damit die Anzeige im 4K Mode nicht verschwommen ist ?+
+4. Die Subtasks Progressbar soll laut Vorlage auch bei 0 erledigten Tasks angezeigt werden, und nciht wie erwünscht verschwinden

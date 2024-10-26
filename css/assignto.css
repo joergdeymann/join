@@ -1,0 +1,59 @@
+.assign {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+
+.assign>* {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 7px 16px;
+    gap: 0px;
+    border-radius: 10px;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+
+.assign>*:hover {
+    background: rgba(231, 231, 231, 1);
+}
+
+
+.assign>.dark-selection {
+    background-color: rgba(42, 54, 71, 1);
+    color: rgba(205, 205, 205, 1)
+}
+
+
+.assign>.dark-selection:hover {
+    background-color: rgba(9, 25, 49, 1);   
+}
+
+
+.assign>*>div {
+    gap: 16px;
+    display:flex;
+    justify-content: center;
+    align-items:center;
+}
+
+
+.assign>*>div>div {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+    height: 42px;
+    width: 42px;
+    border: 2px rgba(255,255,255,1);
+
+    font-family: Inter;
+    font-size: 12px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 1);
+}

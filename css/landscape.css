@@ -1,0 +1,54 @@
+.landscape {
+    position: fixed;
+    top:0;
+    bottom:0;
+    right:0;
+    left:0;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 16px;
+    background-color: #a8a8a8;
+    color: black;
+    font-size: 24px;
+    overflow:hidden;
+}
+
+
+.landscape::before {
+    content:"Please rotate your phone to portrait";
+}
+
+
+.landscape::after {
+    height: 80px;
+    object-fit:contain;
+    content:url("../assets/img/desktop/rotate.svg");
+    animation: rotate 3s linear infinite;
+}
+
+
+@media (max-height: 400px) {
+    .landscape {
+        display: flex;
+        z-index:10;
+    }
+}
+
+
+@keyframes rotate {
+    0% {
+        transform: rotate(90deg);
+        transform-origin: center center;
+    }
+    25% {
+        transform: rotate(90deg);
+    }
+    75% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}

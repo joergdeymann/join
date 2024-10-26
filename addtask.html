@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join - Add Task</title>
+
+    <link rel="shortcut icon" href="./assets/img/desktop/join-logo.svg" type="image/x-icon">
+
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="./css/addtask.css">
+    <link rel="stylesheet" href="./css/addtaskMedia.css">
+    <link rel="stylesheet" href="./css/contacts.css">
+    <link rel="stylesheet" href="./css/customButton.css">
+    <link rel="stylesheet" href="./css/customCheckbox-addtask.css">
+    <link rel="stylesheet" href="./assets/font/inter.css">
+    <link rel="stylesheet" href="./css/nav.css">
+    <link rel="stylesheet" href="./css/msgfly.css" />
+    <link rel="stylesheet" href="./css/stdio.css" />
+    <link rel="stylesheet" href="./css/customSelector.css" />
+    <link rel="stylesheet" href="./css/subtask.css" />
+    <link rel="stylesheet" href="./css/category.css" />
+    <link rel="stylesheet" href="./css/landscape.css" />
+
+    <script src="./js/localStorage.js"></script>
+    <script src="./js/addtask.js"></script>
+    <script src="./js/firebase.js"></script>
+    <script src="./js/contacts.js"></script>
+    <script src="./js/contacts_helpFunctions.js"></script>
+    <script src="./js/colors.js"></script>
+    <script src="./js/session.js"></script>
+    <script src="./js/msgfly.js"></script>
+    <script src="./js/nav_header.js"></script>
+    <script src="./js/stdio.js"></script>
+    <script src="./js/customSelector.js"></script>
+    <script src="./js/assignSelector.js"></script>
+    <script src="./js/contactAddons.js"></script>
+    <script src="./js/subtask.js"></script>
+</head>
+
+<body onload="init();">
+    <div class="landscape"></div>
+    <div class="relative">
+        <div id="msgfly">
+            <div class="msgfly">
+                <span>Task added to board</span>
+                <img src="./assets/img/desktop/board_logo.svg">
+            </div>
+        </div>
+    </div>
+    <header>
+        <div class="max-width relative">
+            <img onclick="window.location.href = 'dashboard.html'" ; class="pd-16"
+                src="./assets/img/desktop/join-logo_header.svg">
+            <span>Kanban Project Management Tool</span>
+            <div class="headerHelpUser">
+                <div class="helparea">
+                    <a href="./help.html"><img src="./assets/img/desktop/question_mark.svg" alt="Question Mark"></a>
+                </div>
+                <div id="loggedUserMonogram" class="userMonogramicon" onclick="openUserMenu()"></div>
+            </div>
+            <div class="popUpUser" id="popUpUser">
+                <div class="linkBox">
+                    <a href="./help.html">Help</a>
+                </div>
+                <div class="linkBox">
+                    <a href='./legal-notice.html'>Legal Notice</a>
+                </div>
+                <div class="linkBox">
+                    <a href='./privacy-policy.html'>Privacy Policy</a>
+                </div>
+                <div class="linkBox">
+                    <a onclick="logOut()" href="./index.html">Log out</a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <nav>
+        <img onclick="window.location.href = 'dashboard.html'" src="./assets/img/desktop/join-logo_navbar.svg"
+            alt="Join-Logo">
+        <div class="mainLinks">
+            <a href="./dashboard.html"><img src="./assets/img/desktop/summary_logo.svg" alt="Summary Logo">Summary</a>
+            <a href="./addtask.html" style=" background-color: rgba(9, 25, 49, 1);"><img
+                    src="./assets/img/desktop/logo_add_task.svg" alt="Add task Logo">Add Task</a>
+            <a href="./kanbanboard.html"><img src="./assets/img/desktop/board_logo.svg" alt="Board Logo">Board</a>
+            <a href="./contacts.html"><img src="./assets/img/desktop/contact_logo.svg" alt="Contacts Logo">Contacts</a>
+        </div>
+        <div class="adviceLinks">
+            <a href="./privacy-policy.html">Privacy Policy</a>
+            <a href="./legal-notice.html">Legal Notice</a>
+        </div>
+    </nav>
+    <div class="main-container">
+        <div class="add-task-container">
+            <form id="add-task-form" onkeydown="noSubmit(event,'Enter')" onsubmit="addNewTask();return false">
+                <h1>Add Task</h1>
+                <div id="add-task-main">
+                    <div class="add-task-left">
+                        <div class="label-input-con">
+                            <label for="title">Title<span class="required-asterisk">*</span></label>
+                            <input type="text" id="title" placeholder="Enter a title">
+                            <span id="title-span" class="required-text d-none">This field is required</span>
+                        </div>
+                        <div class="label-input-con">
+                            <label for="description">Description</label>
+                            <textarea id="description" placeholder="Enter a Description"></textarea>
+                        </div>
+                        <div class="label-input-con">
+                            <label>Assigned to</label>
+                            <div class="relative addtask-assign">
+                                <details class="absolute" style="width:100%;">
+                                    <summary><input class="assigned-to-input" type="text"
+                                            placeholder="Select contacts to assign"></summary>
+                                    <div id="add-task-assignToList" class="selectors">
+                                    </div>
+                                </details>
+                            </div>
+                            <div id="addtask-monogramlist" class="monogramlist flex-row gap8">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="vertical-line-wrapper">
+                        <div class="vertical-line"></div>
+                    </div>
+                    <div class="add-task-right">
+                        <div class="label-input-con">
+                            <label for="due-date">Due Date<span class="required-asterisk">*</span></label>
+                            <input type="date" id="due-date">
+                            <span id="due-date-span" class="required-text d-none">This field is required</span>
+                        </div>
+                        <div class="button-group label-input-con">
+                            <span>Priority</span>
+                            <div class="d-flex">
+                                <input type="radio" id="urgent" name="prio" value="urgent">
+                                <label for="urgent" class="button-label urgent">Urgent<img id="urgent-icon"
+                                        src="./assets/img/desktop/prio_urgent_red.svg"></label>
+
+                                <input type="radio" id="medium" name="prio" value="medium" checked>
+                                <label for="medium" class="button-label medium">Medium<img id="medium-icon"
+                                        src="./assets/img/desktop/prio_medium_yellow.svg"></label>
+
+                                <input type="radio" id="low" name="prio" value="low">
+                                <label for="low" class="button-label low">Low <img id="low-icon"
+                                        src="./assets/img/desktop/prio_low_green.svg"></label>
+                            </div>
+                        </div>
+                        <div class="label-input-con">
+                            <label for="category">Category<span class="required-asterisk">*</span></label>
+                            <div id="select-box" class="selectBox">
+                                <select id="category">
+                                    <option value="" disabled selected>Select task category</option>
+                                    <option value="technical-task">Technical Task</option>
+                                    <option value="user-story">User Story</option>
+                                </select>
+                            </div>
+                            <span id="category-span" class="required-text d-none">This field is required</span>
+                        </div>
+                        <div class="subtask-container label-input-con">
+                            <label>Subtasks</label>
+                            <input class="input-subtask" oninput="toggleSubtaskIcon(event)" type="text" id="subtasks"
+                                placeholder="Add new subtask">
+                            <button type="button" id="add-subtask" class="btn-add-subtask">
+                                <img onclick="clearSubtaskInput(event)" class="add-subtask-clear d-none"
+                                    src="./assets/img/desktop/add-subtask-clear.svg" alt="">
+                                <div class="h-line24"></div>
+                                <img onclick="addSubtasks(event)" class="subtask-icon"
+                                    src="./assets/img/desktop/add_subtask.svg">
+                            </button>
+                            <ul id="subtask-list" class="subtask-list">
+                            </ul>
+                            <div class="edit-input-con d-none">
+                                <input type="text" class="subtask-edit-input">
+                                <div>
+                                    <img class="edit-delete" onclick="deleteSubtask(event)"
+                                        src="./assets/img/desktop/subtask-delete.svg" alt="">
+                                    <div class="h-line24"></div>
+                                    <img class="edit-check" onclick="saveEditedSubtask(event)"
+                                        src="./assets/img/desktop/add-subtask-check.svg" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="button-con">
+                    <p><span class="required-asterisk">*</span>this field is required</p>
+                    <div>
+                        <button class="whitebutton" id="clear-button" type="button" onclick="clearTaskInputs()">Clear
+                            <img src="./assets/img/desktop/clear-task-icon.svg"></button>
+                        <button class="darkbutton msgflydisable" type="submit" value="Create Task">Create Task <img
+                                src="./assets/img/desktop/create-task-check.svg"></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

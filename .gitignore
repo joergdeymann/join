@@ -1,0 +1,4 @@
+*.sav
+*.old
+/backup
+/sav

@@ -1,0 +1,87 @@
+/*
+******right side inout container******
+*/
+.addContactInputContainer {
+    display: flex;
+    flex: 1;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 48px 66px 48px;
+ }
+ 
+ 
+ .emptyMonogram {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+ 
+ }
+ 
+ 
+ .emptyMonogram>img {
+    width: 120px;
+    height: 120px;
+ }
+ 
+
+ .addContactInputContainer2 {
+    width: 422px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 32px;
+ }
+ 
+
+ .form-input {
+    gap: 32px;
+ }
+ 
+
+ .close,
+ .closeMobile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 56px;
+ }
+ 
+
+ .closeMobile {
+    display: none !important;
+ }
+ 
+
+ .closeMobile:hover {
+    background-color: rgba(41, 171, 226, 1);
+    cursor: pointer;
+ }
+ 
+
+ .close:hover {
+    cursor: pointer;
+    background-color: rgba(217, 217, 217, 1);
+ }
+ 
+
+ .close>img {
+    width: 13px;
+    height: 13px;
+ }
+ 
+ 
+ form {
+    display: flex;
+    flex-direction: column;
+ }
+ 
+
+ .contactDetailMobile {
+    height: 80vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(246, 247, 248);
+ }

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+   <title>Join - Kanban Project Management Tool</title>
+
+   <link rel="shortcut icon" href="./favicon.svg">
+   <link rel="stylesheet" href="./assets/font/inter.css" />
+   <link rel="stylesheet" href="./assets/font/poppins.css" />
+   <link rel="stylesheet" href="./styles.css" />
+   <link rel="stylesheet" href="./css/stdio.css" />
+   <link rel="stylesheet" href="./css/login.css" />
+   <link rel="stylesheet" href="./css/loginAnimation.css" />
+   <link rel="stylesheet" href="./css/customCheckbox.css" />
+   <link rel="stylesheet" href="./css/inputField.css" />
+   <link rel="stylesheet" href="./css/customButton.css" />
+   <link rel="stylesheet" href="./css/login-media.css" />
+
+
+   <script src="./js/firebase.js"></script>
+   <script src="./js/localStorage.js"></script>
+   <script src="./js/session.js"></script>
+   <script src="./js/login.js"></script>
+   <script src="./js/autentification.js"></script>
+
+   <script src="./js/events.js"></script>
+   <script src="./js/eventsCustomMsg.js"></script>
+   <script src="./js/eventsButton.js"></script>
+</head>
+
+<body onload="init2()">
+   <div class="body">
+      <div class="relative">
+         <div id="login-master" class="absolute login-master">
+            <div>
+               <div>
+                  <span>Not a Join user ?</span>
+                  <button onclick="openSignup()" class="darkbutton fs16">Sign up</button>
+               </div>
+            </div>
+            <div>
+               <form onsubmit="login();return false;" onload="removeEvent();return false" id="login-card"
+                  class="login-card">
+                  <div class="login-headline">
+                     <span>Log in</span>
+                     <div></div>
+                  </div>
+                  <div class="input-area">
+                     <div>
+                        <div id="input-field-container" class="input-container email">
+                           <input 
+                              id="email" 
+                              type="email" 
+                              required pattern="(?!.*\.\.)[\-A-Za-z0-9_][\-A-Za-z0-9_\.]+[\-A-Za-z0-9]@[\-A-Za-z0-9][\-A-Za-z0-9_]+\.[A-Za-z]{2,4}"
+                              title="Format: user.name@domain.com" 
+                              placeholder="Email" 
+                              autocomplete="email">
+                           <span class="icon"><img src="./assets/img/desktop/letter.svg"></span>
+                           <span class="error-msg visible"></span>
+                        </div>
+                        <div id="password-container" class="input-container password new">
+                           <input id="password" type="password" required
+                              pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s])[A-Za-z\d\W]{8,}$"
+                              placeholder="Password" autocomplete="current-password">
+                           <span class="icon" onmousedown="togglePasswordView(event)">👁️</span>
+                           <span id="password-msg" class="error-msg visible"></span>
+                        </div>
+                     </div>
+                     <div class="remember">
+                        <label class="custom-checkbox">
+                           <input type="checkbox" id="remember-me">
+                           <span class="checkbox-image"></span>
+                        </label>
+                        <span>Remember Me</span>
+                     </div>
+                  </div>
+                  <div class="login-buttons">
+                     <button id="submit" type="submit" class="darkbutton w180">Login</button>
+                     <button onclick="guestLogin(event)" type="submit" class="whitebutton w180">Guest Login</button>
+                  </div>
+               </form>
+            </div>
+            <div class="signup-small">
+               <span>Not a Join user ?</span>
+               <button onclick="openSignup()" class="darkbutton fs16">Sign up</button>
+            </div>
+            <div>
+               <div>
+                  <a class="link" target="_blank" href="./privacy-policy-unlocked.html">Privacy Policy</a>
+                  <a class="link" target="_blank" href="./legal-notice-unlocked.html">Legal notice</a>
+               </div>
+            </div>
+         </div>
+         <img id="main-logo" class="main-logo" src="./assets/img/desktop/join-logo.svg">
+      </div>
+   </div>
+</body>
+
+</html>

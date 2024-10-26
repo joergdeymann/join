@@ -1,0 +1,13 @@
+{
+    "liveServer.settings.port": 5502,
+    "prettier.tabWidth": 3,
+    "[html]": {
+        "editor.tabSize": 3,
+        "editor.insertSpaces": true
+    },
+    "[js]": {
+        "editor.tabSize": 3,
+        "editor.insertSpaces": true
+    }
+}
+

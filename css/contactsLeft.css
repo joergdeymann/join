@@ -1,0 +1,105 @@
+/*
+******left side logo container add contact******
+*/
+.addContactLogoContainer {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 66px 48px;
+    width: 467px;
+    height: 594px;
+    background-color: rgba(42, 54, 71, 1);
+    border-radius: 30px 0 0 30px;
+    color: rgba(255, 255, 255, 1);
+ }
+ 
+ 
+ .addContactLogoContainer>div {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+ }
+ 
+ 
+ .contactLogo,
+ .contactLogoMirror {
+    width: 55.6px;
+    height: 66.48px;
+ }
+ 
+ 
+ .addContactLogoContainer h1 {
+    font-size: 61px;
+    font-weight: 700;
+    font-family: Inter;
+    margin: 0;
+ }
+ 
+ 
+ .addContactLogoContainer span {
+    font-family: Inter;
+    font-size: 27px;
+    font-weight: 400;
+ }
+ 
+ 
+ .vector5 {
+    width: 90px;
+    border-bottom: 3px solid rgba(41, 171, 226, 1);
+ }
+ 
+ 
+ /*
+ ******left side logo container edit contact******
+ */
+ .flexColumn {
+    display: flex;
+    flex-direction: column;
+ }
+ 
+ 
+ .editContactLogoContainer {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 66px 48px;
+    width: 467px;
+    height: 594px;
+    background-color: rgba(42, 54, 71, 1);
+    border-radius: 30px 0 0 30px;
+    color: rgba(255, 255, 255, 1);
+ }
+ 
+ 
+ .editContactLogoContainer>div {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+ }
+ 
+ 
+ .editContactLogoContainer h1 {
+    font-size: 61px;
+    font-weight: 700;
+    font-family: Inter;
+    margin-bottom: 16px;
+    margin-top: 32px;
+ }
+ 
+ 
+ .editContactLogoContainer span {
+    font-family: Inter;
+    font-size: 27px;
+    font-weight: 400;
+ }
+ 
+ 
+ .vector5EditContact {
+    width: 90px;
+    border-bottom: 3px solid rgba(41, 171, 226, 1);
+    margin-bottom: 16px
+ } 

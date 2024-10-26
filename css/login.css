@@ -1,0 +1,247 @@
+* {
+    -webkit-font-smoothing: antialiased; /* Verbessert Text auf WebKit-Browsern */
+}
+
+body {
+    margin:0;
+    height: 100vh;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+    background-color: rgba(246, 247, 248, 1);
+    /* width: 96vw;*/
+    padding-left: 2vw;
+    padding-right: 2vw;
+    display: flex;
+    justify-content: center;
+}
+
+
+.body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(246, 247, 248, 1);
+    height: 100%;
+    max-width: 1440px;
+    margin: auto;
+    width: 100%;
+}
+
+
+.logo-container {
+    margin:0;
+    height: 100vh;
+    box-sizing: border-box;
+}
+
+
+.main-logo {
+    width: 274px;
+    height: 334.07px;
+    opacity: 1;
+    z-index: 5;
+}
+
+
+.relative {
+    position:relative;
+    display: flex; 
+    width: 100%;
+    height: 100%;
+    align-items:center;
+    justify-content:center;
+    overflow: visible;
+}
+    
+
+.absolute {
+    position: absolute;
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
+    display: flex;
+    align-items:center;
+    justify-content:center;
+}
+
+
+.login-card {
+    box-sizing: border-box;
+    width: 652px;
+    min-height: 493px;
+    padding: 48px min(115px,calc((100% - 280px) / 2));
+    gap: 32px;
+    border-radius: 30px;
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0px 0px 14px 3px rgba(0, 0, 0, 0.04);
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+}
+
+
+.login-headline {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    border-radius: 30px;
+    opacity: 0px;
+}
+
+
+.login-headline>div {
+    width: 150px;
+    border: 3px solid rgba(41, 171, 226, 1);
+    border-radius: 3px;
+}
+
+
+.login-headline>span {
+    font-family: Inter;
+    font-size: 61px;
+    font-weight: 700;
+    line-height: 73.2px;
+    color: rgba(0, 0, 0, 1);
+    text-align: center;
+}
+
+
+.login-card .input-area {
+    gap:20px;
+    display:flex;
+    flex-direction: column;
+}
+
+
+.login-card .input-area>div {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    flex: 1;
+}
+
+
+.login-card>.input-area>.remember {
+    height: 24px;
+    margin-left: 39px;
+    gap: 8px;
+    border: 1px solid transparent;
+    display: flex;
+    flex-direction: row;    
+}
+
+
+.login-card>.input-area>.remember span {
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19.2px;
+    text-align: left;
+    color: rgba(0, 0, 0, 1);
+    display: flex;
+    align-items: center;
+}
+
+
+.login-buttons {
+    display: flex;
+    gap: 35px;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+
+.login-master {
+    display: flex;
+    flex-direction:column;
+    justify-content: space-between;
+    opacity: 0;
+    top: 0;
+    overflow-y: visible;
+    min-height: 850px;
+}
+
+
+.login-master>div:nth-child(1) {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: flex-start;
+    height: 80px;
+    width: 100%; 
+    padding-top: 50px;
+    padding-right: min(80px, max(32px,calc((100% - 300px) / 2)));
+}
+
+
+.login-master>div:nth-child(1)>div {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    font-size: 20px;
+    line-height: 24px;
+    justify-content: space-between;    
+}
+
+
+.login-master>div:nth-child(2) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+
+.login-master>div:last-child {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-end;
+    padding-bottom: 40px;
+    height: 80px;
+}
+
+
+.login-master>div:last-child>div {
+    gap: 16px;
+    display: flex;
+    height: 35px;
+}
+
+
+.login-master>div:last-child a {
+    padding:8px;
+    color: rgba(168, 168, 168, 1);
+    font-size: 16px;
+    font-weight: 400;
+    transition: ease-in-out 100ms;
+    line-height: 19.2px;
+    text-decoration: none;
+}
+
+
+.login-master>div:last-child a:hover {
+    font: weight 700px;
+    color: rgba(41, 171, 226, 1);
+}
+
+
+.signup-small {
+    display: flex; 
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    display: none;
+    gap: 16px;
+    padding:16px;
+}
+
+
+.signup-small>span {
+    font-size: 18px;
+    line-height: 24px;
+}
+

@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join - Kanbanboard</title>
+    <link rel="shortcut icon" href="./assets/img/desktop/join-logo.svg" type="image/x-icon">
+
+    <link rel="stylesheet" href="./css/kanbanboard.css">
+    <link rel="stylesheet" href="./css/kanbanAnimation.css">
+    <link rel="stylesheet" href="./css/progressbar.css">
+    <link rel="stylesheet" href="./css/kanbanCard.css">
+    <link rel="stylesheet" href="./css/kanbanTaskView.css">
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="./assets/font/inter.css">
+    <link rel="stylesheet" href="./assets/font/poppins.css">
+    <link rel="stylesheet" href="./css/nav.css">
+    <link rel="stylesheet" href="./css/stdio.css">
+    <link rel="stylesheet" href="./css/inputField.css">
+    <link rel="stylesheet" href="./css/customButton.css">
+    <link rel="stylesheet" href="./css/customSelector.css">
+    <link rel="stylesheet" href="./css/subtask.css">
+    <link rel="stylesheet" href="./css/kanbanTaskAdd.css">
+    <link rel="stylesheet" href="./css/priority.css">
+    <link rel="stylesheet" href="./css/category.css" />
+    <link rel="stylesheet" href="./css/kanbanMedia.css" />
+    <link rel="stylesheet" href="./css/landscape.css" />
+    <link rel="stylesheet" href="./css/touchEvent.css" />
+    <link rel="stylesheet" href="./css/msgfly.css">
+
+    <script src="./js/stdio.js"></script>
+    <script src="./js/firebase.js"></script>
+    <script src="./js/localStorage.js"></script>
+    <script src="./js/session.js"></script>
+    <script src="./js/contacts.js"></script>
+    <script src="./js/contactAddons.js"></script>
+    <script src="./js/assignSelector.js"></script>
+    <script src="./js/kanbanboard.js"></script>
+    <script src="./js/kanbanTaskView.js"></script>
+    <script src="./js/kanbanTaskEdit.js"></script>
+    <script src="./js/kanbanAddTask.js"></script>
+    <script src="./js/customSelector.js"></script>
+    <script src="./js/nav_header.js"></script>
+    <script src="./js/subtask.js"></script>
+    <script src="./js/events.js"></script>
+    <script src="./js/eventsCustomMsg.js"></script>
+    <script src="./js/eventsButton.js"></script>
+    <script src="./js/date.js"></script>
+    <script src="./js/touchEvent.js"></script>
+    <script src="./js/msgfly.js"></script>
+</head>
+
+<body onload="init()" style="overflow: hidden;">
+    <div class="relative">
+        <div id="msgfly">
+            <div class="msgfly">Task deleted</div>
+        </div>
+        <div id="touch-overflow">
+            <div id="touch-card" class="mbb touch-container"></div>
+        </div>
+        <div class="landscape"></div>
+        <div id="task-view" class="drive-in">
+            <div id="task-view-card" class="task-view-card"></div>
+            <form id="task-edit-card" class="task-view-card d-none"></form>
+        </div>
+        <div id="add-task" class="drive-in">
+            <form id="add-task-form" class="relative input-container task-view-card add"
+                onkeydown="noSubmit(event,'Enter')" onsubmit="addNewTask();return false">
+                <input type="hidden" name="status">
+                <div class="top">
+                    <h1>Add Task</h1>
+                    <img class="exit" onclick="closeAddTask()" src="./assets/img/desktop/close.svg">
+                </div>
+                <div id="add-task-main" class="slider">
+                    <div class="add-task-left">
+                        <div class="label-input-con">
+                            <label for="title">Title<span class="required-asterisk">*</span></label>
+                            <input type="text" id="title" class="input-title" placeholder="Enter a title">
+                            <span id="title-span" class="input-title-msg required-text d-none">This field is
+                                required</span>
+                        </div>
+                        <div class="label-input-con">
+                            <label for="subtaskPopupDescription">Description</label>
+                            <textarea id="subtaskPopupDescription" placeholDer="Enter a Description"></textarea>
+                        </div>
+                        <div class="label-input-con">
+                            <label>Assigned to</label>
+                            <div class="relative addtask-assign">
+                                <details id="subtaskPopupRoot" class="absolute" style="width:100%;">
+                                    <summary><input class="assigned-to-input" type="text"
+                                            placeholder="Select contacts to assign"></summary>
+                                    <div id="subtaskPopupList" class="selectors">
+                                    </div>
+                                </details>
+                            </div>
+                            <div id="subtaskPopupMonogram" class="monogramlist flex-row gap8">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="vertical-line-wrapper">
+                        <div class="vertical-line"></div>
+                    </div>
+                    <div class="add-task-right">
+                        <div class="label-input-con">
+                            <label for="due-date">Due Date<span class="required-asterisk">*</span></label>
+                            <input type="date" id="due-date" class="input-date">
+                            <span id="due-date-span" class="input-date-msg required-text d-none">This field is
+                                required</span>
+                        </div>
+                        <div class="priority label-input-con">
+                            <span>Priority</span>
+                            <div class="d-flex">
+                                <input type="radio" id="urgent" name="prio" value="urgent">
+                                <label for="urgent" class="button-label urgent">Urgent<img id="urgent-icon"
+                                        src="./assets/img/desktop/prio_urgent_red.svg"></label>
+
+                                <input type="radio" id="medium" name="prio" value="medium" checked>
+                                <label for="medium" class="button-label medium">Medium<img id="medium-icon"
+                                        src="./assets/img/desktop/prio_medium_yellow.svg"></label>
+
+                                <input type="radio" id="low" name="prio" value="low">
+                                <label for="low" class="button-label low">Low <img id="low-icon"
+                                        src="./assets/img/desktop/prio_low_green.svg"></label>
+                            </div>
+                        </div>
+                        <div class="label-input-con">
+                            <label for="category">Category<span class="required-asterisk">*</span></label>
+                            <div id="select-box" class="selectBox input-category-border">
+                                <select id="category" class="category input-category">
+                                    <option value="" disabled selected>Select task category</option>
+                                    <option value="technical-task">Technical Task</option>
+                                    <option value="user-story">User Story</option>
+                                </select>
+                            </div>
+                            <span id="category-span" class="input-category-msg required-text d-none">This field is
+                                required</span>
+                        </div>
+                        <div class="subtask-container label-input-con">
+                            <label>Subtasks</label>
+                            <input class="input-subtask" oninput="toggleSubtaskIcon(event)" type="text" id="subtasks"
+                                placeholder="Add new subtask">
+                            <button type="button" id="add-subtask" class="btn-add-subtask">
+                                <img onclick="clearSubtaskInput(event)" class="add-subtask-clear d-none"
+                                    src="./assets/img/desktop/add-subtask-clear.svg" alt="">
+                                <div class="h-line24"></div>
+                                <img onclick="addSubtasks(event)" class="subtask-icon"
+                                    src="./assets/img/desktop/add_subtask.svg">
+                            </button>
+                            <ul id="subtask-list" class="subtask-list">
+                            </ul>
+                            <div class="edit-input-con d-none">
+                                <input type="text" class="subtask-edit-input">
+                                <div>
+                                    <img class="edit-delete" onclick="deleteSubtask(event)"
+                                        src="./assets/img/desktop/subtask-delete.svg" alt="">
+                                    <div class="h-line24"></div>
+                                    <img class="edit-check" onclick="saveEditedSubtask(event)"
+                                        src="./assets/img/desktop/add-subtask-check.svg" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="button-con">
+                    <p><span class="required-asterisk">*</span>this field is required</p>
+                    <div>
+                        <button class="whitebutton" id="clear-button" type="button" onclick="clearTaskInputs()">Clear
+                            <img src="./assets/img/desktop/clear-task-icon.svg"></button>
+                        <button class="darkbutton msgflydisable" type="submit" value="Create Task">Create Task <img
+                                src="./assets/img/desktop/create-task-check.svg"></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <header>
+        <div class="max-width relative">
+            <img onclick="window.location.href = 'dashboard.html'" ; class="pd-16"
+                src="./assets/img/desktop/join-logo_header.svg">
+            <span>Kanban Project Management Tool</span>
+            <div class="headerHelpUser">
+                <div class="helparea">
+                    <a href="./help.html"><img src="./assets/img/desktop/question_mark.svg" alt="Question Mark" /></a>
+                </div>
+                <div id="loggedUserMonogram" class="userMonogramicon" onclick="openUserMenu()"></div>
+            </div>
+            <div class="popUpUser" id="popUpUser">
+                <div class="linkBox">
+                    <a href="./help.html">Help</a>
+                </div>
+                <div class="linkBox">
+                    <a href='./legal-notice.html'>Legal Notice</a>
+                </div>
+                <div class="linkBox">
+                    <a href='./privacy-policy.html'>Privacy Policy</a>
+                </div>
+                <div class="linkBox">
+                    <a onclick="logOut()" href="./index.html">Log out</a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <nav>
+        <img onclick="window.location.href = 'dashboard.html'" src="./assets/img/desktop/join-logo_navbar.svg"
+            alt="Join-Logo">
+        <div class="mainLinks">
+            <a href="./dashboard.html"><img src="./assets/img/desktop/summary_logo.svg" alt="Summary Logo">Summary</a>
+            <a href="./addtask.html"><img src="./assets/img/desktop/logo_add_task.svg" alt="Add task Logo">Add
+                Task</a>
+            <a href="./kanbanboard.html" style=" background-color: rgba(9, 25, 49, 1);"><img
+                    src="./assets/img/desktop/board_logo.svg" alt="Board Logo">Board</a>
+            <a href="./contacts.html"><img src="./assets/img/desktop/contact_logo.svg" alt="Contacts Logo">Contacts</a>
+        </div>
+        <div class="adviceLinks">
+            <a href="./privacy-policy.html">Privacy Policy</a>
+            <a href="./legal-notice.html">Legal Notice</a>
+        </div>
+    </nav>
+    <div class="main-container mbc">
+        <div class="mbh">
+            <div></div>
+            <div>
+                <div class="board">Board</div>
+                <div class="buttons">
+                    <div id="input-field-container" class="input-container">
+                        <input id="find" type="text" placeholder="Find Task" oninput="filterTasks()">
+                        <span class="icon" onclick="filterTasks('input-field-container')"><img
+                                src="./assets/img/desktop/search.svg"></span>
+                    </div>
+                    <div onclick="openAddTask()" class="submit-button darkbutton">
+                        <span class="addtask-button-text">Add Task</span>
+                        <img src="./assets/img/desktop/white-plus.svg">
+                    </div>
+                </div>
+            </div>
+            <div>
+
+            </div>
+            <div class="todos">
+                <div class="todo">
+                    To do
+                    <a class="btn-add" onclick="openAddTask('to-do')">
+                        <img src="./assets/img/desktop/add_subtask.svg">
+                    </a>
+                </div>
+                <div class="todo">
+                    In progress
+                    <a class="btn-add" onclick="openAddTask('in-progress')">
+                        <img src="./assets/img/desktop/add_subtask.svg">
+                    </a>
+                </div>
+                <div class="todo">
+                    Await feedback
+                    <a class="btn-add" onclick="openAddTask('await-feedback')">
+                        <img src="./assets/img/desktop/add_subtask.svg">
+                    </a>
+                </div>
+                <div class="todo">
+                    Done
+                </div>
+            </div>
+        </div>
+        <div class="mbb">
+            <div>
+                <div class="todo">
+                    To do
+                    <a class="btn-add" onclick="openAddTask('to-do')">
+                        <img src="./assets/img/desktop/add_subtask.svg">
+                    </a>
+                </div>
+                <div class="containers" id="to-do-container" ondragleave="toggleBorder(event,false)"
+                    ondragenter="toggleBorder(event,true)" ondrop="drop(event, 'to-do')" ondragover="allowDrop(event)">
+                </div>
+            </div>
+            <div>
+                <div class="todo">
+                    In progress
+                    <a class="btn-add" onclick="openAddTask('in-progress')">
+                        <img src="./assets/img/desktop/add_subtask.svg">
+                    </a>
+                </div>
+                <div class="containers" id="in-progress-container" ondragleave="toggleBorder(event,false)"
+                    ondragenter="toggleBorder(event,true)" ondrop="drop(event, 'in-progress')"
+                    ondragover="allowDrop(event)">
+
+                </div>
+            </div>
+            <div>
+                <div class="todo">
+                    Await feedback
+                    <a class="btn-add" onclick="openAddTask('await-feedback')">
+                        <img src="./assets/img/desktop/add_subtask.svg">
+                    </a>
+                </div>
+                <div class="containers" id="await-feedback-container" ondragleave="toggleBorder(event,false)"
+                    ondragenter="toggleBorder(event,true)" ondrop="drop(event, 'await-feedback')"
+                    ondragover="allowDrop(event)">
+                </div>
+            </div>
+            <div>
+                <div class="todo">
+                    Done
+                </div>
+                <div class="containers" id="done-container" ondragleave="toggleBorder(event,false)"
+                    ondragenter="toggleBorder(event,true)" ondrop="drop(event, 'done')" ondragover="allowDrop(event)">
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

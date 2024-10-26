@@ -1,0 +1,53 @@
+==============================
+Input Boxes
+==============================
+Input Boxen:
+    <div class="input-field-container">
+        <div> <!-- Inputfield area widthout msg -->
+            <div> <!-- justified content input / images -->
+                <input type="email" required placeholder="your e-mail"> <!-- The original Input Field  -->
+                <img class="letter" src="./assets/img/desktop/letter.svg"><!-- Image that is into Textarea -->
+            </div>
+        </div>
+        <span>Fehler</span> <!-- Place for messages in red  -->
+    </div>
+
+Copy it here widthout Comments:
+    <div class="input-field-container">
+        <div> 
+            <div> 
+                <input type="email" required placeholder="your e-mail"> 
+                <img class="letter" src="./assets/img/desktop/letter.svg">
+            </div>
+        </div>
+        <span>Fehler</span>
+    </div>
+
+CSS Area:     
+.passwordvisible.input-field-container input:focus + img {
+    content: url("../assets/img/desktop/eye.svg");
+}
+
+To create the Password Input, add the word "password" in the first classlist 
+    "password input-field-container"
+
+======================================
+Checkboxes width Text and own Graphic 
+======================================
+    <div class="remember"><!-- Remember Me area-->
+
+        <label class="custom-checkbox">
+            <input type="checkbox" id="custom-checkbox">
+            <span class="checkbox-image"></span>
+        </label>
+
+    <span>Remember Me</span>
+    </div>
+
+Only this code is neede to show the Check Boxes
+    <label class="custom-checkbox">
+        <input type="checkbox" id="custom-checkbox">
+        <span class="checkbox-image"></span>
+    </label>
+
+

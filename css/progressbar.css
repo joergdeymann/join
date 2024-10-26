@@ -1,0 +1,37 @@
+.progress-container {
+    display: flex;
+    flex-direction: row;   
+    align-items:center; 
+    height: 16px;
+    font-family: Inter;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 14.4px;
+    text-align: left;
+    gap:10px;    
+}
+
+
+.progress-bar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 128px;
+    height: 8px;
+    gap: 10px;
+    border-radius: 8px;
+    background: rgba(244, 244, 244, 1);
+}
+
+
+.progress {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    background: rgba(69, 137, 255, 1);
+    width: 50%; /* Example */
+    height: 8px;
+    border-radius: 16px;
+}

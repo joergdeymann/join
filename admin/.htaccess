@@ -1,0 +1,6 @@
+Order deny,allow
+Deny from all
+AuthType Basic
+AuthName "Admin Tools"
+AuthUserFile /admin/.htpasswd
+Require valid-user

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <title>Join - Summary</title>
+
+   <link rel="icon" href="./assets/img/desktop/join-logo.svg" type="image/x-icon" />
+
+   <link rel="stylesheet" href="./styles.css" />
+   <link rel="stylesheet" href="./css/stdio.css" />
+   <link rel="stylesheet" href="./css/nav.css" />
+   <link rel="stylesheet" href="./css/dashboard.css" />
+   <link rel="stylesheet" href="./css/dashboard_media.css">
+   <link rel="stylesheet" href="./assets/font/inter.css" />
+   <link rel="stylesheet" href="./css/contacts.css" />
+   <link rel="stylesheet" href="./css/contacs_media.css">
+   <link rel="stylesheet" href="./css/landscape.css" />
+
+   <script src="./js/localStorage.js"></script>
+   <script src="./js/dashboard.js"></script>
+   <script src="./js/firebase.js"></script>
+   <script src="./js/session.js"></script>
+   <script src="./js/contacts.js"></script>
+   <script src="./js/nav_header.js"></script>
+   <script src="./js/date.js"></script>
+
+</head>
+
+<body onload="init()">
+   <div class="landscape"></div>
+   <div class="mobile-greeting"></div>
+   <header>
+      <div class="max-width relative">
+         <img onclick = "window.location.href = 'dashboard.html'"; class="pd-16" src="./assets/img/desktop/join-logo_header.svg" />
+         <span>Kanban Project Management Tool</span>
+         <div class="headerHelpUser">
+            <div class="helparea">
+               <a href="./help.html"><img src="./assets/img/desktop/question_mark.svg" alt="Question Mark" /></a>
+            </div>
+            <div id="loggedUserMonogram" class="userMonogramicon" onclick="openUserMenu()"></div>
+         </div>
+         <div class="popUpUser" id="popUpUser">
+            <div class="linkBox">
+                <a href="./help.html">Help</a>
+            </div>
+            <div class="linkBox">
+                <a href='./legal-notice.html'>Legal Notice</a>
+            </div>
+            <div class="linkBox">
+                <a  href='./privacy-policy.html'>Privacy Policy</a>
+            </div>
+            <div class="linkBox">
+                <a onclick="logOut()" href="./index.html">Log out</a>
+            </div>
+        </div>
+          </div>
+   </header>
+   <nav>
+      <img onclick = "window.location.href = 'dashboard.html'" src="./assets/img/desktop/join-logo_navbar.svg" alt="Join-Logo" />
+      <div class="mainLinks">
+         <a href="./dashboard.html" style="background-color: rgba(9, 25, 49, 1)"><img
+               src="./assets/img/desktop/summary_logo.svg" alt="Summary Logo" />Summary</a>
+         <a href="./addtask.html"><img src="./assets/img/desktop/logo_add_task.svg" alt="Add task Logo" />Add Task</a>
+         <a href="./kanbanboard.html"><img src="./assets/img/desktop/board_logo.svg" alt="Board Logo" />Board</a>
+         <a href="./contacts.html"><img src="./assets/img/desktop/contact_logo.svg" alt="Contacts Logo" />Contacts</a>
+      </div>
+      <div class="adviceLinks">
+         <a href="./privacy-policy.html">Privacy Policy</a>
+         <a href="./legal-notice.html">Legal Notice</a>
+     </div>
+</nav>
+   <div class="dashboard-main" id="dashboard">
+      <div class="dashboard-container">
+         <div class="dashboard-header">
+            <h2 class="dashboard-subtitle">Join 326</h2>
+            <span class="divider"></span>
+            <p class="dashboard-subtext">Key Metrics at a glance</p>
+            <span class="dividerMobile"></span>
+         </div>
+         <div class="dashBoardWrapper">
+            <div class="dashboard-left">
+               <div class="stats1">
+                  <div class="toDoTile" onclick="forwardingToBoard()">
+                     <div class="iconTextWrapper">
+                        <div class="pencilIcon"></div>
+                        <div class="toDoTileText">
+                           <p class="keynumber" id="todo-count">0</p>
+                           <p class="keyNumberText">To-do</p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="doneTile" onclick="forwardingToBoard()">
+                     <div class="iconTextWrapper">
+                        <div class="checkIcon"></div>
+                        <div class="doneTileText">
+                           <p class="keynumber" id="done-count">0</p>
+                           <p class="keyNumberText">Done</p>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="stats2" onclick="forwardingToBoard()">
+                  <div class="stats2-c">
+                     <div class="iconTextWrapperUrgent">
+                        <div class="urgentIcon"></div>
+                        <div class="doneTileText">
+                           <p class="keynumber" id="urgent-count">0</p>
+                           <p class="keyNumberText">Urgent</p>
+                        </div>
+                     </div>
+                     <div class="divider-urgent"></div>
+                     <div class="stats-text-deadline">
+                        <p class="urgentDate" id="deadline">October 04, 2024</p>
+                        <p class="urgentDeadline">Upcoming Deadline</p>
+                     </div>
+                  </div>
+               </div>
+               <div class="stats3">
+                  <div class="stats3_inner" onclick="forwardingToBoard()">
+                     <div class="iconTextWrapperColumn">
+                        <p class="keynumber" id="total-count">0</p>
+                        <p class="keyNumberText">Tasks in Board</p>
+                     </div>
+                  </div>
+                  <div class="stats3_inner" onclick="forwardingToBoard()">
+                     <div class="iconTextWrapperColumn">
+                        <p class="keynumber" id="in-progress-count">0</p>
+                        <p class="keyNumberText">In Progress</p>
+                     </div>
+                  </div>
+                  <div class="stats3_inner" onclick="forwardingToBoard()">
+                     <div class="iconTextWrapperColumn">
+                        <p class="keynumber" id="awaiting-feedback-count">0</p>
+                        <p class="keyNumberText">Awaiting Feedback</p>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="dashboard-right">
+               <div class="greeting-text">
+                  <span class="greetingSalutation" id="greetingSalutation"></span>
+                  <span class="dashboardusername" id="userName"></span>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</body>
+
+</html>

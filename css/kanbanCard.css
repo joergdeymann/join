@@ -1,0 +1,137 @@
+.mbb .card {
+    box-sizing: border-box;
+    width: 252px;
+    padding: 16px;
+    gap: 24px;
+    border-radius: 24px;
+    box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    background: rgba(255, 255, 255, 1);
+    z-index:1;
+    transform-origin: bottom left;
+    transition: 100ms ease-in-out;
+    cursor: pointer;
+}
+
+
+.mbb .card:active {
+    transform: rotate(5deg);
+}
+
+
+.rotate5 {
+    transform: rotate(5deg);
+}
+
+
+.mbb .card>h1 {
+    display: flex;
+    width:fit-content;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 4px 16px 4px 16px;
+    gap: 10px;
+    border-radius: 8px;    
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19.2px;
+    color: rgba(255, 255, 255, 1);
+    background: rgba(0, 56, 255, 1);
+    margin-block:0px;
+}
+
+
+.mbb .user-story>h1, 
+.task-view-card>.top>.user-story {
+    background: rgba(0, 56, 255, 1) !important;
+}
+
+
+.mbb .technical-task>h1, 
+.task-view-card>.top>.technical-task{
+    background: rgba(31, 215, 193, 1) !important;
+}
+
+
+.mbb-text {
+    display: flex;
+    flex-direction:column;
+    gap: 10px;
+    border-radius: 10px;    
+}
+
+
+.mbb-text>h1 {
+    display: flex;
+    align-items: center;
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 19.2px;
+    text-align: left;    
+    color: rgba(42, 54, 71, 1);
+    height: 38px;
+    margin:0;
+}
+
+
+.mbb-text>span {
+    display: flex;
+    align-items: center;
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19.2px;
+    text-align: left;
+    height: 38px;
+    color: rgba(168, 168, 168, 1);
+}
+
+
+.mbb-icons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height:32px;
+    min-height: 32px;
+    gap:10px;
+}
+
+
+.mbb-icons>.monogram {
+    display: flex;
+    flex-direction: row;
+}
+
+
+.mbb-icons>.monogram>div {
+    box-sizing: border-box;
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right:-8px;
+    background-color: yellow; /* Example */
+    border: 1px solid #FFFFFF;
+    color:rgba(255, 255, 255, 1);
+    font-family: Inter;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 14.4px;
+    text-align: center;
+}
+
+
+.mbb-icons>.monogram>div.count {
+    color: black;
+    background-color: inherit;
+    border:none;
+    font-weight: 700;
+    margin-left:8px;
+    font-size: 14px;
+}

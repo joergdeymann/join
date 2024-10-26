@@ -1,0 +1,129 @@
+/*
+    Position / Display
+*/
+.relative {
+    position:relative;
+}
+
+
+.absolute {
+    position: absolute;
+}
+
+
+.d-none {
+    display: none !important;
+}
+
+
+.vhidden {
+    visibility: hidden;
+}
+
+
+/*
+    Buttons
+*/
+a,input,button {
+    cursor:pointer;
+}
+
+
+a {
+    text-decoration: none;
+}
+
+
+/*
+    Flex 
+*/
+.flex-column {
+    display: flex;
+    flex-direction:column;
+}
+
+
+.flex-row {
+    display: flex;
+    flex-direction:row;
+}
+
+
+.top-left {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+
+/* 
+    Filter
+*/
+.invert {
+    filter:invert();
+}
+
+
+/*
+    Sizes
+*/
+.fs16 {
+    font-size: 16px !important;
+}
+
+
+.gap8 {
+    gap:8px;
+}
+
+
+.gap16 {
+    gap:16px;
+}
+
+
+.h32 {
+    height:32px;
+}
+
+
+.h48 {
+    height:48px;
+}
+
+
+.w180 {
+    width: 180px;
+}
+
+
+.mb32 {
+    margin-bottom: 32px;
+}
+
+
+/*
+    Special Items
+*/
+.circle-monogram {
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    border-radius: 50%;
+    border: 2px solid white;
+    color:white;
+    font-family: Inter;
+    font-size: 12px;
+    font-weight: 400;
+    height:42px;
+    width: 42px;
+    min-height: 42px;
+    min-width:42px;   
+}
+
+
+.h-line24 {
+    border: 1px solid rgba(209,209,209,1);
+    min-height:24px;
+}

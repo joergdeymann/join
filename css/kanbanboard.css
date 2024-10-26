@@ -1,0 +1,301 @@
+body {
+    height: 100vh;
+}
+
+
+.mbc {
+    display: flex;
+    flex-direction: column;
+    gap: 0px; 
+    background: rgba(246, 247, 248, 1);
+    height: calc(100% - 100px);
+} 
+
+
+.mbc>.mbh {
+    display: flex; 
+    flex-direction:column;   
+    height: 232px;
+}
+
+
+.mbc>.mbh>div:nth-child(odd),
+.mbh .todos {
+    min-height: 24px;
+    display:flex;
+    padding: 0px 64px;   
+    gap: 16px;
+    margin-left:-4px;
+    margin-right:4px;
+    overflow: visible;
+}
+
+
+.mbc>.mbh>div:nth-child(2)  {
+    flex:1;
+    display: flex; 
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 64px;
+    gap: 26px;
+}
+
+
+.mbc .board {
+    font-family: Inter;
+    font-size: 61px;
+    font-weight: 700;
+    line-height: 73.2px;
+    display: flex;
+    align-items: center;
+}
+
+
+.mbc .buttons {
+    display: flex;
+    gap: 32px;
+    height: 48px;
+}
+
+
+.mbc .find-button {
+    box-sizing: border-box;
+    display: flex;
+    width: 312px;
+    height: 48px;
+    padding: 8px 16px;
+    gap: 10px;
+    border-radius: 10px;
+    border: 1px;
+    background: rgba(255, 255, 255, 1);
+}
+
+
+.mbc .find-button>input  {
+    outline: none;
+    width: 100%;
+    display: flex;
+    border: 0px;
+}
+
+
+.mbs .submit-button {
+    box-sizing: border-box;;
+    display: flex;
+    align-items: center;
+    width: 160px;
+    height: 48px;
+    padding: 8px 16px 8px 16px;
+    gap: 4px;
+    border-radius: 10px;
+    border: 1px;
+    background-color: rgba(42, 54, 71, 1);
+    align-items: center;
+    color: rgba(255, 255, 255, 1);
+    font-family: Inter;
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 25.2px;
+}
+
+
+.mbc .submit-button>img {
+    margin-left: 8px;
+    height: 18.67px;
+    object-fit: contain;
+}
+
+
+.mbc .todo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: left;
+    height: 24px;
+    line-height: 24px;
+    font-family: Inter;
+    font-size: 20px;
+    font-weight: 700;
+    width:260px;
+    min-width: 260px;
+    margin-bottom: 15.5px;
+    box-sizing: border-box;
+}
+
+
+.mbc .todo>* {
+    display: flex;
+    align-items: center;
+}
+
+
+.btn-add {
+    box-sizing: border-box;
+    border-radius:8px;
+    height: 24px;
+    width: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+
+.btn-add>img {
+    justify-content: center;
+    height: 24px;
+    width: 24px;
+}
+
+
+.btn-add>img {
+    content: url("../assets/img/desktop/plus-border-black.svg");
+}
+
+
+.btn-add>img:hover {
+    content: url("../assets/img/desktop/plus-border-blue.svg");
+}
+
+
+.mbb {
+    padding: 0 64px;
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+    overflow-y:auto; 
+    height:100%;
+}
+
+
+.mbb>div  {
+    display: flex; 
+    flex-grow:1;
+}
+
+
+.mbb .containers {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    width: 252px;
+    min-height: 100%; 
+    flex-grow:1;
+    margin: 0px;
+    padding:0px;
+    gap:24px;
+    overflow-x:visible;
+}
+
+
+.mbb .task-border {
+    border: 1px dashed rgba(168, 168, 168, 1);
+    border-radius: 25px;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
+    background-color: rgba(0, 0, 0, 0.02);
+    overflow: hidden;
+}
+
+
+.mbb .containers::before {
+    box-sizing: border-box;
+    position: absolute;
+    width:252px;
+    height: 48px;
+    transform: translate(0, 0);
+    font-family: Open Sans;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19.2px;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(168, 168, 168, 1);
+    border: 1px dashed rgba(168, 168, 168, 1);
+    border-radius: 10px;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
+    background-color: rgba(231, 231, 231, 1);
+    margin-bottom:-48px;
+    z-index:0;
+}
+
+
+.mbb #to-do-container::before {
+    content: "No tasks To do";
+}
+
+
+.mbb #in-progress-container::before {
+    content: "No tasks in progess";
+}
+
+
+.mbb #await-feedback-container::before {
+    content: "No tasks await feedback";
+}
+
+
+.mbb #done-container::before {
+    content: "No tasks Done";
+}
+
+
+.mbb .hidden::before {
+    z-index:-1;
+}
+
+
+.icon-prio-low {
+    content: url('../assets/img/desktop//prio_low_green.svg');
+    width: 17px;
+    object-fit: contain;
+}
+
+
+.icon-prio-medium {
+    content: url('../assets/img/desktop/prio_medium_yellow.svg');
+    width: 17px;
+    object-fit: contain;
+}
+
+
+.icon-prio-urgent {
+    content: url('../assets/img/desktop/prio_urgent_red.svg');
+    width: 17px;
+    object-fit: contain;
+}
+
+.register {
+    text-decoration: none;
+    color: black;
+}
+
+
+.mbh .buttons .icon {
+    padding-left:16px;
+    border-left: 1px solid rgb(209,209,209);
+    height: 30px;
+    width: 30px;
+    justify-content: flex-end;
+}
+
+
+.mbh .buttons .icon img {
+    height: 17.58px;
+    width: 17.58px;
+    border-radius: 50%;
+    padding: 4px;
+    overflow:visible;
+}
+
+
+.mbh .buttons .icon img:hover {
+    background-color: rgb(209,209,209);
+}
+
+
+#input-field-container {
+    width: 312px;
+}

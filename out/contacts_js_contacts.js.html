@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: contacts/js/contacts.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: contacts/js/contacts.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>let contacts = [
+    { id: 1, name: "Zoe", lastname: "Zimmerman", email: "zoe.zimmerman@example.com", phone: "+49 143 679 865 34" },
+    { id: 2, name: "Anna", lastname: "Anderson", email: "anna.anderson@example.com", phone: "+49 143 679 865 34" },
+    { id: 3, name: "Zora", lastname: "Baker", email: "ben.baker@example.com", phone: "+49 143 679 865 34" },
+    { id: 4, name: "Clara", lastname: "Carter", email: "clara.carter@example.com", phone: "+49 143 679 865 34" },
+    { id: 5, name: "Carl", lastname: "Dawson", email: "david.dawson@example.com", phone: "+49 143 679 865 34" },
+    { id: 6, name: "Alwin", lastname: "Evans", email: "emma.evans@example.com", phone: "+49 143 679 865 34" },
+    { id: 7, name: "Felix", lastname: "Foster", email: "felix.foster@example.com", phone: "+49 143 679 865 34" },
+    { id: 8, name: "Greta", lastname: "Gibson", email: "greta.gibson@example.com", phone: "+49 143 679 865 34" },
+    { id: 9, name: "Karlotta", lastname: "Hansen", email: "hans.hansen@example.com", phone: "+49 143 679 865 34" },
+    { id: 10, name: "Alex", lastname: "Irving", email: "iris.irving@example.com", phone: "+49 143 679 865 34" },
+    { id: 11, name: "Julia", lastname: "Jones", email: "julia.jones@example.com", phone: "+49 143 679 865 34" },
+    { id: 12, name: "Karl", lastname: "King", email: "karl.king@example.com", phone: "+49 143 679 865 34" },
+    { id: 13, name: "Lena", lastname: "Lewis", email: "lena.lewis@example.com", phone: "+49 143 679 865 34" },
+    { id: 14, name: "Max", lastname: "Miller", email: "max.miller@example.com", phone: "+49 143 679 865 34" },
+    { id: 15, name: "Nina", lastname: "Nelson", email: "nina.nelson@example.com", phone: "+49 143 679 865 34" },
+    { id: 16, name: "Oliver", lastname: "Owen", email: "oliver.owen@example.com", phone: "+49 143 679 865 34" },
+    { id: 17, name: "Paula", lastname: "Parker", email: "paula.parker@example.com", phone: "+49 143 679 865 34" },
+    { id: 18, name: "Yara", lastname: "Young", email: "yara.young@example.com", phone: "+49 143 679 865 34" },
+    { id: 19, name: "Jennifer", lastname: "Quincy", email: "quinn.quincy@example.com", phone: "+49 143 679 865 34" },
+    { id: 20, name: "Rita", lastname: "Roberts", email: "rita.roberts@example.com", phone: "+49 143 679 865 34" },
+    { id: 21, name: "Sam", lastname: "Bath", email: "sam.smith@example.com", phone: "+49 143 679 865 34" },
+    { id: 22, name: "Ulrich", lastname: "Thompson", email: "tina.thompson@example.com", phone: "+49 143 679 865 34" },
+    { id: 23, name: "Uwe", lastname: "Ulrich", email: "uwe.ulrich@example.com", phone: "+49 143 679 865 34" },
+    { id: 24, name: "Uta", lastname: "Vaughn", email: "vera.vaughn@example.com", phone: "+49 143 679 865 34" },
+    { id: 25, name: "Mathilda", lastname: "Wilson", email: "walter.wilson@example.com", phone: "+49 143 679 865 34" },
+    { id: 26, name: "Claus", lastname: "Xander", email: "xenia.xander@example.com", phone: "+49 143 679 865 34" },
+];
+
+let splittedName = [];
+
+function loadContacts() {
+    document.getElementById('showContacts').innerHTML = '';
+    document.getElementById('contactDetail').innerHTML = '';
+    contacts.sort((a, b) => a.name.localeCompare(b.name));
+
+    let groupedContacts = contacts.reduce((groups, contact) => {
+        const firstLetter = contact.name[0].toUpperCase();
+        if (!groups[firstLetter]) {
+            groups[firstLetter] = [];
+        }
+        groups[firstLetter].push(contact);
+
+
+        return groups;
+    }, {});
+
+    for (let [letter, contacts] of Object.entries(groupedContacts)) {
+        document.getElementById('showContacts').innerHTML += `\n${letter}`;
+        for (let i = 0; i &lt; contacts.length; i++) {
+            let contact = contacts[i];
+            let name = contact.name;
+            let lastname = contact.lastname;
+            let mail = contact.email;
+            let phone = contact.phone;
+            let initial1 = Array.from(name)[0].toUpperCase();
+            let initial2 = Array.from(lastname)[0].toUpperCase();
+
+            document.getElementById('showContacts').innerHTML += `
+            &lt;div onclick="openContact(${i},'${initial1}','${initial2}','${name}','${lastname}','${mail}','${phone}')" class="contact" id="contact${i}">
+                &lt;div class="icon${i}">
+                    &lt;span>${initial1}${initial2}&lt;/span>
+                &lt;/div>
+                &lt;div class="nameAndMail" id=""nameAndMail{i}"">
+                    &lt;span>${name} ${lastname}&lt;/span>
+                    &lt;span>${mail}&lt;/span>
+                &lt;/div>
+            &lt;/div>
+            `;
+        };
+    }
+}
+
+function addToContact() {
+    let newName = document.getElementById('name');
+    let newEmail = document.getElementById('email');
+    let newPhone = document.getElementById('phone');
+    splitName(newName.value);
+    let newFirstname = splittedName[0];
+    let newLastname = splittedName[1];
+    let newContact = {
+        name: newFirstname,
+        lastname: newLastname,
+        email: newEmail.value,
+        phone: newPhone.value
+    };
+    contacts.push(newContact);
+    clearInput(newName, newEmail, newPhone);
+    /*saveData('Contacts',contacts); */ // push to Firebase
+    closeContactCreation();
+    loadContacts();
+}
+
+function splitName(name) {
+    let fullname = name;
+    splittedName = fullname.split(" ")
+}
+
+function clearInput(newName, newEmail, newPhone) {
+    newName.value = "";
+    newEmail.value = "";
+    newPhone.value = "";
+}
+
+// Das werden die anmeckern mit sovielen Parametern
+// Meine Idee die Variabelen all in ein JSON zu packen (Jörg)
+function openContact(i, initial1, initial2, name, lastname, mail, phone) {
+    console.log()
+    document.getElementById('contactDetail').innerHTML = '';
+    document.getElementById('contactDetail').innerHTML += `
+    &lt;div class="name">
+        &lt;span>${initial1}${initial2}&lt;/span>
+        &lt;div class="fullName">
+          &lt;span>${name} ${lastname}&lt;/span>
+          &lt;div class="buttons">
+            &lt;button>Edit&lt;/button>
+            &lt;button onclick="deleteContact('${mail}')">Delete&lt;/button>
+          &lt;/div>
+        &lt;/div>
+      &lt;/div>
+      &lt;h3>Contact Information&lt;/h3>
+      &lt;h3>&lt;strong>Email&lt;/strong>&lt;/h3>
+      &lt;span>${mail}&lt;/span>
+      &lt;h3>&lt;strong>Phone&lt;/strong>&lt;/h3>
+      &lt;span>${phone}&lt;/span>
+
+    &lt;/div>
+    `;
+}
+
+function deleteContact(i) {
+    contacts.splice(findContact(`${i}`), 1);
+    loadContacts();
+}
+
+//return contacts.findIndex(e => e.email === name); sollte auch gehen :), dann ist der NOT Found wert -1  (Jörg)
+function findContact(name) {
+    for (let i = 0; i &lt; contacts.length; i++) {
+        if (contacts[i].email === name) {
+            return [i]
+        }
+    }
+    return null;
+}
+
+
+/**
+ * 
+ * creates a contact form
+ */
+function openCreateContactDialog() {
+    let dialogBackground = document.getElementById('dialogBackground');
+    document.getElementById('body').classList.add('overflowHidden')
+    dialogBackground.classList.remove('displayNone');
+    dialogBackground.innerHTML = '';
+    dialogBackground.innerHTML = `
+            
+    &lt;div class="addContact" onclick="dontClose(event)">
+        &lt;form onsubmit="addToContact();return false;">
+            &lt;input required id="name" type="text" placeholder="name" />
+            &lt;input required id="email" type="email" placeholder="e-mail" />
+            &lt;input id="phone" type="number" placeholder="phone number" />
+            &lt;button type="submit">Add new contact "icon"&lt;/button>
+        &lt;/form>
+    &lt;/div>
+
+    `;
+    
+}
+
+function closeContactCreation() {
+    document.getElementById('dialogBackground').classList.add('displayNone');
+    document.getElementById('body').classList.remove('overflowHidden');
+}
+
+function dontClose(event) {
+    event.stopPropagation();
+}
+
+
+/**
+ * 
+ * returns the monogram of a Name
+ * 
+ * @param {string} name first name and last name split by " " 
+ * @returns the first characters of the 2 first Names in uppercase
+ */
+function getMonogram(name) {
+    let na=name.toUpperCase().split(" ",2);
+    return na[0][0]+na[1][0];
+}
+
+
+/**
+ * 
+ * Compare 2 Contacts by last name and name
+ * 
+ * @param {string} a - first name to compare 
+ * @param {string} b - second name to compare
+ * @returns - true if Contact 1 is earlier in alphabet than Contact 2 
+ */
+function compareContactNames(a,b) {
+    if (a == null) return 1;
+    if (b == null) return -1;
+    const c = a.name.localeCompare(b.name);
+    if (c === 0) {
+        return a.lastname.localeCompare(b.lastname);
+    }    
+    return c;
+}
+
+
+/**
+ * 
+ * Sorts the contact list by last name and name 
+ * 
+ * @param {object} contacts - object list of contacts
+ * @returns - sorted object
+ */
+function sortContacts(contacts)  {
+    return contacts.sort((a, b) => compareContactNames(a,b));
+}
+
+
+/**
+ * 
+ * put each line a contact for the add task
+ * 
+ * @param {object} contact - put one contact to the dropdown
+ * @returns - a line of contact in html
+ */
+function getHTMLContactSelection(contact) {
+    let name=contact.name + " " + contact.lastname;
+    return `
+    &lt;label>${getMonogram(name)} ${name}&lt;input type="checkbox" name="assign" value="${contact.id}" />&lt;/label>    
+    `
+}
+
+
+/**
+ * 
+ * load and Sort Contactlist
+ * 
+ * @returns - contact list
+ */
+async function loadSortedContactList() {
+    let c=await loadData("Contacts");
+    if (c != null) {
+        return sortContacts(c);
+    }
+    return null;
+}
+
+
+/**
+ * 
+ * if contactlist has data load contactlist otherwise do nothing
+ */
+function renderContactList(contacts) {
+    if (contacts == null) return;
+    let html="";
+    for(let contact of contacts) {
+        html+=getHTMLContactSelection(contact);
+    }
+    document.getElementById("checkboxes").innerHTML=html;
+}
+
+
+/**
+ * first initialisation of contact list 
+ */
+async function initContactList() {
+    // isLogged();
+    let contacts=await loadSortedContactList();
+    renderContactList(contacts);
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addUserToList">addUserToList</a></li><li><a href="global.html#clearLocalStorage">clearLocalStorage</a></li><li><a href="global.html#clearLogin">clearLogin</a></li><li><a href="global.html#compareContactNames">compareContactNames</a></li><li><a href="global.html#disableCheck">disableCheck</a></li><li><a href="global.html#existUser">existUser</a></li><li><a href="global.html#fetchUrl">fetchUrl</a></li><li><a href="global.html#getHTMLContactSelection">getHTMLContactSelection</a></li><li><a href="global.html#getMonogram">getMonogram</a></li><li><a href="global.html#getNewId">getNewId</a></li><li><a href="global.html#getPath">getPath</a></li><li><a href="global.html#getResponse">getResponse</a></li><li><a href="global.html#getUserList">getUserList</a></li><li><a href="global.html#guestLogin">guestLogin</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initContactList">initContactList</a></li><li><a href="global.html#initEventListener">initEventListener</a></li><li><a href="global.html#initEventListenerLogin">initEventListenerLogin</a></li><li><a href="global.html#initEventListenerRegister">initEventListenerRegister</a></li><li><a href="global.html#inputFilled">inputFilled</a></li><li><a href="global.html#isEqualPassword">isEqualPassword</a></li><li><a href="global.html#isLogged">isLogged</a></li><li><a href="global.html#isLoginCorrect">isLoginCorrect</a></li><li><a href="global.html#loadData">loadData</a></li><li><a href="global.html#loadFromLocalStorage">loadFromLocalStorage</a></li><li><a href="global.html#loadSortedContactList">loadSortedContactList</a></li><li><a href="global.html#loadUserFromLocalStorage">loadUserFromLocalStorage</a></li><li><a href="global.html#login">login</a></li><li><a href="global.html#logout">logout</a></li><li><a href="global.html#msgBox">msgBox</a></li><li><a href="global.html#openCreateContactDialog">openCreateContactDialog</a></li><li><a href="global.html#openDashboard">openDashboard</a></li><li><a href="global.html#openPage">openPage</a></li><li><a href="global.html#passwordValidationOK">passwordValidationOK</a></li><li><a href="global.html#putLoginToValue">putLoginToValue</a></li><li><a href="global.html#register">register</a></li><li><a href="global.html#rememberMe">rememberMe</a></li><li><a href="global.html#removeKeyInLocalStorage">removeKeyInLocalStorage</a></li><li><a href="global.html#removeUser">removeUser</a></li><li><a href="global.html#renderContactList">renderContactList</a></li><li><a href="global.html#saveData">saveData</a></li><li><a href="global.html#saveToLocalStorage">saveToLocalStorage</a></li><li><a href="global.html#saveUserToLocalStorage">saveUserToLocalStorage</a></li><li><a href="global.html#sendButton">sendButton</a></li><li><a href="global.html#sessionDestroy">sessionDestroy</a></li><li><a href="global.html#sessionLoad">sessionLoad</a></li><li><a href="global.html#sessionSave">sessionSave</a></li><li><a href="global.html#sortContacts">sortContacts</a></li><li><a href="global.html#unregister">unregister</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.3</a> on Sun Aug 25 2024 20:37:45 GMT+0200 (Mitteleuropäische Sommerzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

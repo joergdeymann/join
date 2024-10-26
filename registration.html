@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Join - Kanban Project Management Tool</title>
+    <link rel="shortcut icon" href="./favicon.svg">
+    <link rel="stylesheet" href="./assets/font/inter.css" />
+    <link rel="stylesheet" href="./assets/font/poppins.css" />
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./css/stdio.css" />
+    <link rel="stylesheet" href="./css/login.css" />
+    <link rel="stylesheet" href="./css/customCheckbox.css" />
+    <link rel="stylesheet" href="./css/inputField.css" />
+    <link rel="stylesheet" href="./css/customButton.css" />
+    <link rel="stylesheet" href="./css/registration.css" />
+    <link rel="stylesheet" href="./css/registration-media.css" />
+    <link rel="stylesheet" href="./css/msgfly.css" />
+
+    <script src="./js/firebase.js"></script>
+    <script src="./js/localStorage.js"></script>
+    <script src="./js/session.js"></script>
+    <script src="./js/events.js"></script>
+    <script src="./js/eventsCustomMsg.js"></script>
+    <script src="./js/eventsButton.js"></script>
+    <script src="./js/registration.js"></script>
+    <script src="./js/autentification.js"></script>
+    <script src="./js/msgfly.js"></script>
+    <script src="./js/contacts.js"></script>
+    <script src="./js/contacts_helpFunctions.js"></script>
+    <script src="./js/contactAddons.js"></script>
+
+  </head>
+  <body onload="init()">
+    <div class="body">
+      <div class="relative">
+        <div id="msgfly">
+          <div class="msgfly">You Signed Up successfully
+        </div>
+        </div>   
+        <div id="login-master" class="absolute login-master">
+          <div>
+          </div>
+          <div>
+            <form onsubmit="register();return false;" onload="removeEvent();return false" id="login-card"
+              class="login-card">
+              <div class="login-headline-container">
+                <a class="login-headline-before" href="./index.html"><img></a>
+                <div class="login-headline">
+                  <span>Sign up</span>
+                  <div></div>
+                </div>
+              </div>
+              <div class="input-area">
+                <div>
+                  <div id="user-container" class="input-container name">
+                    <input id="user" type="text" required pattern="^[A-Za-zÀ-ÖØ-öø-ÿ]+(?: [A-Za-zÀ-ÖØ-öø-ÿ]+)*$" placeholder="Name" autocomplete="username">
+                    <span class="icon"><img src="./assets/img/desktop/person.svg"></span>
+                    <span class="error-msg visible"></span>
+                  </div>
+                  <div id="email-container" class="input-container email">
+                    <input
+                      id="email" 
+                      type="email" 
+                      required pattern="(?!.*\.\.)[\-A-Za-z0-9_][\-A-Za-z0-9_\.]+[\-A-Za-z0-9]@[\-A-Za-z0-9][\-A-Za-z0-9_]+\.[A-Za-z]{2,4}" 
+                      title="Format: user.name@domain.com" 
+                      placeholder="Email" 
+                      autocomplete="email">
+                    <span class="icon"  ><img src="./assets/img/desktop/letter.svg"></span>
+                    <span class="error-msg visible"></span>
+                  </div>
+                  <div id="sign-password-container" class="input-container password new">
+                    <input id="sign-password" type="password" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s])[A-Za-z\d\W]{8,}$"  placeholder="Password" autocomplete="new-password">
+                    <span class="icon" onmousedown="togglePasswordView(event)">👁️</span>
+                    <span id="sign-password-msg" class="error-msg visible"></span>
+                  </div>
+                  <div id="confirm-password-container" class="input-container password new">
+                    <input id="confirm-password" type="password" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s])[A-Za-z\d\W]{8,}$" placeholder="Password" autocomplete="new-password">
+                    <span class="icon" onmousedown="togglePasswordView(event)">👁️</span>
+                    <span id="confirm-password-msg" class="error-msg visible"></span>
+                  </div>
+                </div>
+                <div class="remember">
+                  <label class="custom-checkbox">
+                    <input type="checkbox" id="remember-me">
+                    <span class="checkbox-image"></span>
+                  </label>
+                  <span>I accept the <a href="./privacy-policy-unlocked.html" class="privacy" target="privacy-policy"> Privacy policy</a></span>
+                </div>
+              </div>
+              <div class="login-buttons">
+                <button onmousedown="activateFormErrors('login-card')" id="submit" type="submit"
+                  class="darkbutton msgflydisable">Sign up</button>
+              </div>
+            </form>
+          </div>
+          <div>
+            <div class="adviceLinks">
+              <a  target="_blank" href='./privacy-policy-unlocked.html'>Privacy Policy</a>
+              <a  target="_blank" href='./legal-notice-unlocked.html'>Legal Notice</a>
+            </div>
+            </div>
+        </div>
+        <img id="main-logo" class="main-logo logo-position" src="./assets/img/desktop/join-logo.svg">
+      </div>
+    </div>
+  </body>
+</html>

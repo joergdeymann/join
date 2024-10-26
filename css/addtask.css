@@ -1,0 +1,390 @@
+h1 {
+   font-size: 61px;
+   font-weight: 700;
+   margin-bottom: 5px;
+}
+
+
+label,
+span,
+input,
+textarea,
+select {
+   font-weight: 400;
+   font-size: 20px;
+}
+
+
+.multiselect {
+   position: relative;
+   width: 100%;
+}
+
+
+#checkboxes {
+   gap: 80px;
+   display: none;
+   border-radius: 10px;
+   padding: 10px;
+   padding-top: 10px;
+   background-color: #fff;
+   position: absolute;
+   top: 55px;
+   width: 420px;
+   max-height: 200px;
+   overflow-y: auto;
+   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+#checkboxes label {
+   display: flex;
+   align-items: center;
+   padding: 8px;
+   font-size: 0.9em;
+   color: #333;
+   cursor: pointer;
+   border-radius: 3px;
+}
+
+
+#checkboxes label:hover {
+   background-color: #f0f0f0;
+}
+
+
+#checkboxes input {
+   margin-right: 10px;
+   transform: scale(1.2);
+   cursor: pointer;
+}
+
+
+input[type="radio"] {
+   display: none;
+}
+
+
+.button-label {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   width: 136px;
+   padding: 16px 10px 16px 10px;
+   gap: 8px;
+   border-radius: 10px;
+   background-color: white;
+   color: black;
+   cursor: pointer;
+   transition: background-color 0.1s;
+   font-size: 21px;
+   line-height: 25.2px;
+   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
+}
+
+
+input[type="radio"]:checked + .button-label.urgent {
+   background-color: #ff3d00;
+   color: #ffffff;
+   font-weight: 700;
+   box-shadow: none;
+}
+
+
+input[type="radio"]:checked + .button-label.urgent img {
+   content: url("../assets/img/desktop/prio_urgent_white.svg");
+}
+
+
+input[type="radio"]:checked + .button-label.low img {
+   content: url("../assets/img/desktop/prio_low_white.svg");
+}
+
+
+input[type="radio"]:checked + .button-label.medium img {
+   content: url("../assets/img/desktop/prio_medium_white.svg");
+}
+
+
+input[type="radio"]:checked + .button-label.medium {
+   background-color: #ffc107;
+   color: #ffffff;
+   font-weight: 700;
+   box-shadow: none;
+}
+
+
+input[type="radio"]:checked + .button-label.low {
+   background-color: #4caf50;
+   color: #ffffff;
+   font-weight: 700;
+   box-shadow: none;
+}
+
+
+input[type="radio"]:hover:not(:checked) + .button-label {
+   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+
+input[type="date"]:invalid {
+   color: #d1d1d1;
+}
+
+
+textarea {
+   resize: none;
+   width: 406px;
+   height: 102px;
+}
+
+
+.add-task-container {
+   width: 100%;
+   display: flex;
+   flex-direction: row;
+   justify-content: center;
+}
+
+
+#add-task-main {
+   display: flex;
+   justify-content: center;
+   align-items: flex-start;
+   flex-direction: row;
+   gap: 60px;
+   flex-wrap: wrap;
+}
+
+
+.add-task-left {
+   width: 440px;
+   display: flex;
+   justify-content: flex-start;
+   flex-direction: column;
+}
+
+
+.add-task-right {
+   width: 440px;
+   display: flex;
+   justify-content: flex-start;
+   flex-direction: column;
+}
+
+
+.vertical-line {
+   border-left: 1px solid #d1d1d1;
+   height: 424px;
+}
+
+
+.vertical-line-wrapper {
+   padding-top: 16px;
+   height: 100%;
+   display: flex;
+   align-items: center;
+}
+
+
+.label-input-con {
+   display: flex;
+   flex-direction: column;
+   margin-top: 32px;
+   gap: 8px;
+}
+
+
+.label-input-con input {
+   padding: 12px 21px 12px 21px;
+   border-radius: 10px;
+   border: 1px solid #d1d1d1;
+}
+
+
+.label-input-con textarea {
+   padding: 18px 16px 18px 16px;
+   border-radius: 10px;
+   border: 1px solid #d1d1d1;
+}
+
+
+.label-input-con input:focus,
+.label-input-con textarea:focus {
+   border: 1px solid #29abe2;
+   outline: none;
+}
+
+
+.required-asterisk {
+   color: #ff8190;
+}
+
+
+.required-text {
+   font-family: Poppins;
+   font-size: 12px;
+   font-weight: 400;
+   line-height: 14.4px;
+   color: #ff8190;
+}
+
+
+.d-none {
+   display: none;
+}
+
+
+.button-con {
+   display: flex;
+   justify-content: space-between;
+   width: 100%;
+   height: 100px;
+   align-items: center;
+   gap: 16px;
+}
+
+
+.button-con div {
+   display: flex;
+   justify-content: center;
+   gap: 10px;
+}
+
+
+.whitebutton:hover > img {
+   content: url("../assets/img/desktop/clear-task-icon-blue.svg");
+}
+
+
+.whitebutton:active > img {
+   content: url("../assets/img/desktop/clear-task-icon-black.svg");
+}
+
+
+.contact-checkbox {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   flex-direction: row;
+   margin-bottom: 4px;
+   gap: 8px;
+   border-radius: 10px;
+   padding: 7px 16px 7px 16px;
+   overflow: hidden;
+   cursor: pointer;
+}
+
+
+.contact-checkbox:hover{
+   background-color: #091931;
+   color: white;
+}
+
+
+
+.contact-checkbox > div {
+   display: flex;
+   align-items: center;
+   gap: 8px;
+}
+
+
+.icon {
+   width: 42px;
+   height: 42px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   border-radius: 50%;
+   border: 2px solid rgba(255, 255, 255, 1);
+   color: white;
+}
+
+
+.error-color {
+   border: 1px solid #ff8190;
+}
+
+.d-flex {
+   display: flex;
+   gap: 16px;
+}
+
+
+.hidden {
+   opacity: 0;
+}
+
+
+.subtask-icon {
+   width: 24px;
+   display: flex;
+   justify-content: space-between;
+   gap: 16px;
+   flex: 1;
+}
+
+
+
+.subtask-icon img {
+   cursor: pointer;
+}
+
+
+.subtask-edit-input {
+   margin-bottom: 12px;
+   width: 100%;
+   border: none !important;
+   border-radius: 0 !important;
+   padding: 4px 16px 4px 16px !important;
+   font-size: 16px !important;
+   border-bottom: 1px solid #29abe2 !important;
+}
+
+
+.edit-input-con {
+   position: relative;
+}
+
+
+.edit-input-con #edit-delete {
+   cursor: pointer;
+   position: absolute;
+   padding-right: 8px;
+   top: 0.3em;
+   right: 40px;
+}
+
+
+.edit-input-con #edit-check {
+   cursor: pointer;
+   position: absolute;
+   top: 0.5em;
+   right: 20px;
+}
+
+
+.label-input-con li {
+   cursor: pointer;
+   user-select: none;
+   width: 100%;
+   margin-right: 64px;
+}
+
+
+.label-input-con li>input {
+   overflow: hidden;
+   text-overflow: ellipsis;
+   white-space: nowrap;
+   width: 100%;
+   border:none;
+   background: inherit;
+   font-size:inherit;
+   height:unset;
+   margin:0;
+   padding:0;
+   pointer-events:none;
+} 
+
+

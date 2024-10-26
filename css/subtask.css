@@ -1,0 +1,213 @@
+.subtask-container {
+   position: relative;
+   box-sizing: border-box;
+   display: flex;
+   flex-direction: column;
+   margin-top: 32px;
+   gap: 8px;
+}
+
+ 
+.subtask-container input {
+   padding: 12px 21px 12px 21px;
+   border-radius: 10px;
+   border: 1px solid #d1d1d1;
+   font-size: 20px;
+   line-height: 24px;
+}
+
+
+.subtask-container textarea {
+   padding: 18px 16px 18px 16px;
+   border-radius: 10px;
+   border: 1px solid #d1d1d1;
+}
+
+
+.subtask-container input:focus,
+.subtask-container textarea:focus {
+   border: 1px solid #29abe2;
+   outline: none;
+}
+
+
+.opacity {
+   opacity: 0;
+}
+
+
+.subtask-container .d-none+.h-line24 {
+   display: none;
+}
+
+
+.subtask-container .subtask-icon {
+   height: 18px;
+   display: flex;
+   justify-content: flex-end;
+   align-items: center;
+   gap:8px; 
+   flex: 1;
+}
+
+
+.subtask-container .subtask-icon img {
+   height: 100%;
+   cursor: pointer;
+}
+
+
+.subtask-container .subtask-edit-input {
+   margin-bottom: 12px;
+   border: none !important;
+   border-radius: 0 !important;
+   padding: 4px 16px 4px 16px !important;
+   font-size: 16px !important;
+   border-bottom: 1px solid #29abe2 !important;
+   display: flex;
+   flex:1;
+}
+
+
+.subtask-container .edit-input-con {
+   display: flex;
+   box-sizing: border-box;
+   position: relative;
+   margin-bottom: 100px;
+}
+
+
+.subtask-container .edit-input-con>div {
+   position:absolute;
+   right:16px;
+   top:0px;
+   height:24px;
+   flex-direction:row;
+   display:flex;
+   align-items: center;;
+   gap: 4px;
+}
+
+
+.subtask-container .edit-input-con>div img {
+   cursor:pointer;
+   object-fit: contain;
+}
+
+
+.subtask-container .edit-input-con .edit-delete {
+   width: 16px;
+   height: 18px;
+}
+
+
+.subtask-container .edit-input-con .edit-check {
+   width: 18px;
+   height: auto;
+}
+
+
+.subtask-container ul {
+   margin:0;
+   align-items: center;
+   padding:0;
+   list-style:none;
+   overflow-y: auto;
+   max-height: 150px;
+}
+
+
+.subtask-container .list-item::before {
+   content: '';
+   display: inline-block; 
+   width: 6px; 
+   height: 6px; 
+   background-color: black; 
+   border-radius: 50%; 
+   position: absolute; 
+   left: 20px; 
+   top: 50%; 
+   transform: translateY(-50%); 
+}
+
+
+.subtask-container .list-item:hover {
+   background-color: rgba(231, 231, 231, 1);
+   border-radius: 8px;
+}
+
+
+.subtask-container .list-item:not(:hover) img, 
+.subtask-container .list-item:not(:hover) div
+{ 
+   display:none;  
+}
+
+
+.subtask-container .subtask-edit-input:focus~img {
+   display:flex !important;  
+}
+
+
+.subtask-container .list-item {
+   position: relative;
+   box-sizing: border-box;
+   display: flex;
+   align-items:center;
+   justify-content: space-between;
+   background-color: transparent;
+   transition: background-color 0.3s ease;
+   height: 32px;
+   padding-left: 40px;
+   padding-right:16px;
+}
+
+
+.subtask-container li {
+   cursor: pointer;
+   user-select: none;
+   width: 100%;
+   margin-right: 64px;
+}
+
+
+.subtask-container li>input {
+   overflow: hidden;
+   text-overflow: ellipsis;
+   white-space: nowrap;
+   width: 100%;
+   border:none !important;
+   background: inherit;
+   height:unset;
+   margin:0;
+   padding:0;
+   pointer-events:none;
+   font-family: Inter;
+   font-size: 16px;
+   font-weight: 400;
+   line-height: 19.2px;
+} 
+
+
+.subtask-container .btn-add-subtask {
+    all: unset;
+    position: absolute;
+    right: 16px;
+    outline: none;
+    height: 48px;  
+    top: 33px;    
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+
+.subtask-container .btn-add-subtask>img {
+   height: 14px;
+   width: auto;
+}
+
+
+.btn-add-subtask:hover {
+    cursor: pointer;
+}

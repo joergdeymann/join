@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: js/dashboard.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: js/dashboard.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * 
+ * is executed when the page loads, checks whether and which user is logged in, generates the user monogram, the welcome text and updates the dashboard
+ * 
+ */
+function init() {
+   if (isLogged()) {
+      logedUserMonogram();
+      mobileGreeting();
+
+      greetingUser();
+      updateDashboard();
+   }
+}
+
+ 
+/**
+ * 
+ * checks which user is logged in and generates the personal greeting
+ * 
+ */
+function greetingUser() {
+   salutation();
+   let data= JSON.parse(sessionStorage.getItem(PROJECT));  
+   let userName = data.username; 
+   if (userName == "guest") {
+      document.getElementById('greetingSalutation').innerHTML+="!";
+   } else {
+      document.getElementById('greetingSalutation').innerHTML+=",";
+      document.getElementById('userName').innerHTML = userName;
+   }
+}
+
+
+/**
+ * 
+ * generates different greetings depending on the time of day
+ * 
+ */
+function salutation() {
+   let hello = getGreeting();
+   document.getElementById('greetingSalutation').innerHTML = hello;
+}
+
+
+/**
+ * 
+ * creates and updates each tile, will give an error if loading is not possible
+ * 
+ */
+async function updateDashboard() {
+   try { // AUA: do you know what you are doing here ?
+      createToDoCount();
+      createDoneCount();
+      createUrgentCount();
+      createInProgressCount();
+      createAwaitingFeedbackCount();
+      createTotalCount();
+      createNextDeadline();
+      const deadlineElement = document.querySelector('.urgentDate');
+   } catch (error) {
+      console.error('Fehler beim Laden des Dashboards:', error);
+   }
+}
+
+
+/**
+ * 
+ * creates the ToDo tasks counter value HTML
+ * 
+ */
+async function createToDoCount() {
+   const todoCount = await countTasksByStatus('to-do');
+   document.getElementById('todo-count').innerText = todoCount;
+}
+
+
+/**
+ * 
+ * creates the Done tasks counter value HTML
+ * 
+ */
+async function createDoneCount() {
+   const doneCount = await countTasksByStatus('done');
+   document.getElementById('done-count').innerText = doneCount;
+}
+
+
+/**
+ * 
+ * creates the urgent tasks counter value HTML
+ * 
+ */
+async function createUrgentCount() {
+   const urgentCount = await countTasksByPrio('urgent');
+   document.getElementById('urgent-count').innerText = urgentCount;
+}
+
+
+/**
+ * 
+ * creates the on progress tasks counter value HTML
+ * 
+ */
+async function createInProgressCount() {
+   const inProgressCount = await countTasksByStatus('in-progress');
+   document.getElementById('in-progress-count').innerText = inProgressCount;
+}
+
+
+/**
+ * 
+ * creates the awaiting feedback tasks counter value HTML
+ * 
+ */
+async function createAwaitingFeedbackCount() {
+   const awaitingFeedbackCount = await countTasksByStatus('await-feedback');
+   document.getElementById('awaiting-feedback-count').innerText = awaitingFeedbackCount;
+}
+
+
+/**
+ * 
+ * creates the total number of tasks counter value HTML
+ * 
+ */
+async function createTotalCount() {
+   const totalCount = await countAllTasks();
+   document.getElementById('total-count').innerText = totalCount;
+}
+
+
+/**
+ * 
+ * creates the next deadline value HTML
+ * 
+ */
+async function createNextDeadline() {
+   const nextDeadline = await findNextDeadline();
+   const deadlineElement = document.getElementById('deadline'); 
+   deadlineElement.innerText = nextDeadline || 'No upcoming deadlines';
+}
+
+/**
+ * redirects the user to the kanban board when clicked
+ * 
+ */
+
+function forwardingToBoard() {
+   window.location.href = './kanbanboard.html';
+}
+
+/**
+ * 
+ * filters tasks by status and returns the amount per status
+ * 
+ * @param {string} status 
+ * @returns amount of tasks per status 
+ */
+async function countTasksByStatus(status) {
+   const tasks = await loadData('taskstorage');
+   if (!tasks) {
+      return 0;
+   }
+   const taskArray = Object.values(tasks);
+   return taskArray.filter((task) => task &amp;&amp; task.status === status).length;
+}
+
+
+/**
+ * 
+ * filters tasks by priority status and returns the amount per status
+ * 
+ * @param {string} prio 
+ * @returns amount of tasks per status
+ */
+async function countTasksByPrio(prio) {
+   const tasks = await loadData('taskstorage');
+   if (!tasks) {
+      return 0;
+   }
+   const taskArray = Object.values(tasks);
+   return taskArray.filter((task) => task &amp;&amp; task.prio === prio).length;
+}
+
+
+/**
+ * 
+ * count all tasks in kanbanbord
+ * 
+ * @returns number of tasks
+ */
+async function countAllTasks() {
+   const tasks = await loadData('taskstorage');
+   if (!tasks || Object.keys(tasks).length === 0) {
+      return 0;
+   }
+   const taskArray = Object.values(tasks).filter((task) => task !== null);
+   return taskArray.length;
+}
+
+
+/**
+ * 
+ * Finds and returns the next upcoming task deadline or null
+ *
+ * @returns next task deadline or null
+ */
+async function findNextDeadline() {
+   const tasks = await loadObjectData('taskstorage');
+   if (!tasks) return null;
+   const today = new Date();
+   const upcomingTask = Object.values(tasks)
+      .filter(hasValidDueDate)
+      .map(convertDueDate)
+      .filter((task) => task.dueDate >= today)
+      .sort((a, b) => a.dueDate - b.dueDate)[0];
+   return formatDueDate(upcomingTask);
+}
+
+
+/**
+ * 
+ * Checks if a task has a valid due date
+ * 
+ * @param {Object} task - The task object to check
+ * @param {string|Date} task.dueDate - The due date of the task
+ * @returns {boolean} - Returns true if the task and its due date are valid, otherwise false
+ */
+function hasValidDueDate(task) {
+   return task &amp;&amp; task.dueDate;
+}
+
+
+/**
+ * Converts the task's due date to a Date object.
+ * 
+ * @param {Object} task - The task object to convert.
+ * @param {string|Date} task.dueDate - The due date of the task, which may be a string or a Date object.
+ * @returns {Object} - Returns a new task object with the due date as a Date object.
+ */
+function convertDueDate(task) {
+   return {
+      ...task,
+      dueDate: new Date(task.dueDate),
+   };
+}
+
+
+/**
+ * Formats the task's due date as a localized string.
+ * 
+ * @param {Object} task - The task object containing the due date
+ * @param {Date} task.dueDate - The due date of the task
+ * @returns {string|null} - Returns the formatted due date string in 'en-US' format, or null if no task is provided
+ */
+function formatDueDate(task) {
+   return task 
+      ? task.dueDate.toLocaleDateString('en-US', {
+           year: 'numeric',
+           month: 'long',
+           day: 'numeric',
+        })
+      : null;
+}
+
+
+/**
+ * 
+ * PRIVATE
+ * 
+ * Checks if Phone is in Landscape
+ * Checks if User comes from login page
+ * 
+ * @returns 
+ * - true if: 
+ *    Phone is in landsacpe
+ *    AND
+ *    User comes from Login
+ */
+function mustShowMobileGreeting() {
+   let firstlogin=(new URLSearchParams(window.location.search)).get('login') != null
+   let width = +window.innerWidth;
+
+   return firstlogin &amp;&amp; width&lt;=450;
+
+}
+
+
+/**
+ * 
+ * PRIVATE
+ * 
+ * Sets a greeting on a Mobile Phone, 
+ * sleeps a while and
+ * then open then hides the message 
+ */
+async function showMobileGreeting() {
+   const greeting = document.querySelector(".mobile-greeting");
+   const welcome=getGreeting();
+   const   user=getUsername();
+   if (user=="guest") {
+      greeting.innerHTML=`&lt;span>${welcome}!&lt;/span>&lt;span>&lt;/span>`;
+   } else {
+      greeting.innerHTML=`&lt;span>${welcome},&lt;/span>&lt;span>${user}&lt;/span>`;      
+   }
+   greeting.style.opacity=0;
+   await new Promise(e => setTimeout(e,2000));
+   greeting.style.display="none";
+}
+
+
+/**
+ * 
+ * PUBLIC
+ * 
+ * If we are on Mobile Phone we send a greeting , before we continue
+ */
+async function mobileGreeting() {
+   if (mustShowMobileGreeting() ) {
+      showMobileGreeting();
+   } else {
+      document.querySelector(".mobile-greeting").style.display="none";
+   }
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#PROJECT">PROJECT</a></li><li><a href="global.html#XinitEventListenerLogin">XinitEventListenerLogin</a></li><li><a href="global.html#activateFormErrors">activateFormErrors</a></li><li><a href="global.html#addContactHTML">addContactHTML</a></li><li><a href="global.html#addContainerData">addContainerData</a></li><li><a href="global.html#addFormListener">addFormListener</a></li><li><a href="global.html#addNewContact">addNewContact</a></li><li><a href="global.html#addNewTask">addNewTask</a></li><li><a href="global.html#addSubtasks">addSubtasks</a></li><li><a href="global.html#addToggleSelectListener">addToggleSelectListener</a></li><li><a href="global.html#addUserToList">addUserToList</a></li><li><a href="global.html#addValidationMessage">addValidationMessage</a></li><li><a href="global.html#allowDrop">allowDrop</a></li><li><a href="global.html#appendTask">appendTask</a></li><li><a href="global.html#arrayToObject">arrayToObject</a></li><li><a href="global.html#backToContactBook">backToContactBook</a></li><li><a href="global.html#changeBgColor">changeBgColor</a></li><li><a href="global.html#checkEscapeKey">checkEscapeKey</a></li><li><a href="global.html#clearInput">clearInput</a></li><li><a href="global.html#clearLocalStorage">clearLocalStorage</a></li><li><a href="global.html#clearLogin">clearLogin</a></li><li><a href="global.html#clearSubtaskInput">clearSubtaskInput</a></li><li><a href="global.html#clearTaskInputs">clearTaskInputs</a></li><li><a href="global.html#closeAddTask">closeAddTask</a></li><li><a href="global.html#closeContactCreation">closeContactCreation</a></li><li><a href="global.html#closeMobileDialogBackground">closeMobileDialogBackground</a></li><li><a href="global.html#closeMobileEditPopUp">closeMobileEditPopUp</a></li><li><a href="global.html#closeTaskEdit">closeTaskEdit</a></li><li><a href="global.html#closeTaskView">closeTaskView</a></li><li><a href="global.html#compareContactNames">compareContactNames</a></li><li><a href="global.html#confirmDelete">confirmDelete</a></li><li><a href="global.html#convertDueDate">convertDueDate</a></li><li><a href="global.html#countAllTasks">countAllTasks</a></li><li><a href="global.html#countTasksByPrio">countTasksByPrio</a></li><li><a href="global.html#countTasksByStatus">countTasksByStatus</a></li><li><a href="global.html#createAwaitingFeedbackCount">createAwaitingFeedbackCount</a></li><li><a href="global.html#createContactArray">createContactArray</a></li><li><a href="global.html#createDoneCount">createDoneCount</a></li><li><a href="global.html#createEditContactDialogMobileHTML">createEditContactDialogMobileHTML</a></li><li><a href="global.html#createInProgressCount">createInProgressCount</a></li><li><a href="global.html#createNewContactObject">createNewContactObject</a></li><li><a href="global.html#createNextDeadline">createNextDeadline</a></li><li><a href="global.html#createSingleContactArray">createSingleContactArray</a></li><li><a href="global.html#createSingleContactHTML">createSingleContactHTML</a></li><li><a href="global.html#createSingleContactMobileHTML">createSingleContactMobileHTML</a></li><li><a href="global.html#createToDoCount">createToDoCount</a></li><li><a href="global.html#createTotalCount">createTotalCount</a></li><li><a href="global.html#createUrgentCount">createUrgentCount</a></li><li><a href="global.html#createWarningPopUp">createWarningPopUp</a></li><li><a href="global.html#customErrorMsg">customErrorMsg</a></li><li><a href="global.html#customMessage">customMessage</a></li><li><a href="global.html#deleteContact">deleteContact</a></li><li><a href="global.html#deleteContactFromTask">deleteContactFromTask</a></li><li><a href="global.html#deleteData">deleteData</a></li><li><a href="global.html#deleteSafeReload">deleteSafeReload</a></li><li><a href="global.html#deleteSubtask">deleteSubtask</a></li><li><a href="global.html#deleteTask">deleteTask</a></li><li><a href="global.html#detailsEventClick">detailsEventClick</a></li><li><a href="global.html#detailsEventCloseWindow">detailsEventCloseWindow</a></li><li><a href="global.html#detailsEventKey">detailsEventKey</a></li><li><a href="global.html#detailsEventToggle">detailsEventToggle</a></li><li><a href="global.html#detailsToggle">detailsToggle</a></li><li><a href="global.html#disableButton">disableButton</a></li><li><a href="global.html#disableCheck">disableCheck</a></li><li><a href="global.html#disableFormEvents">disableFormEvents</a></li><li><a href="global.html#disableRedBorder">disableRedBorder</a></li><li><a href="global.html#displayContacts">displayContacts</a></li><li><a href="global.html#displaySelectorMonograms">displaySelectorMonograms</a></li><li><a href="global.html#displaySubtaskInput">displaySubtaskInput</a></li><li><a href="global.html#displayTasks">displayTasks</a></li><li><a href="global.html#dontClose">dontClose</a></li><li><a href="global.html#drag">drag</a></li><li><a href="global.html#drop">drop</a></li><li><a href="global.html#editSubtask">editSubtask</a></li><li><a href="global.html#editTask">editTask</a></li><li><a href="global.html#enableButton">enableButton</a></li><li><a href="global.html#enableRedBorder">enableRedBorder</a></li><li><a href="global.html#endTouch">endTouch</a></li><li><a href="global.html#eventErrorMsg">eventErrorMsg</a></li><li><a href="global.html#existUser">existUser</a></li><li><a href="global.html#expanded">expanded</a></li><li><a href="global.html#extraValidationCheck">extraValidationCheck</a></li><li><a href="global.html#faultDisplay">faultDisplay</a></li><li><a href="global.html#fetchTasks">fetchTasks</a></li><li><a href="global.html#fetchUrl">fetchUrl</a></li><li><a href="global.html#fillSubtaskInput">fillSubtaskInput</a></li><li><a href="global.html#filterSelector">filterSelector</a></li><li><a href="global.html#filterTasks">filterTasks</a></li><li><a href="global.html#filterValidContacts">filterValidContacts</a></li><li><a href="global.html#findNextDeadline">findNextDeadline</a></li><li><a href="global.html#findTag">findTag</a></li><li><a href="global.html#formatDueDate">formatDueDate</a></li><li><a href="global.html#formatPhoneNumber">formatPhoneNumber</a></li><li><a href="global.html#formatStyles">formatStyles</a></li><li><a href="global.html#forwardingToBoard">forwardingToBoard</a></li><li><a href="global.html#generateArray">generateArray</a></li><li><a href="global.html#generateDarkColor">generateDarkColor</a></li><li><a href="global.html#generateDisplayContactsHTML">generateDisplayContactsHTML</a></li><li><a href="global.html#generateGroupLetterHTML">generateGroupLetterHTML</a></li><li><a href="global.html#generateInventoryDataArray">generateInventoryDataArray</a></li><li><a href="global.html#getAssignedIdsFromUI">getAssignedIdsFromUI</a></li><li><a href="global.html#getCategoryClass">getCategoryClass</a></li><li><a href="global.html#getCategoryText">getCategoryText</a></li><li><a href="global.html#getColor">getColor</a></li><li><a href="global.html#getContacts">getContacts</a></li><li><a href="global.html#getCurrentContact">getCurrentContact</a></li><li><a href="global.html#getDatasetById">getDatasetById</a></li><li><a href="global.html#getElement">getElement</a></li><li><a href="global.html#getElementEdit">getElementEdit</a></li><li><a href="global.html#getFormId">getFormId</a></li><li><a href="global.html#getFormQs">getFormQs</a></li><li><a href="global.html#getFullNameInContact">getFullNameInContact</a></li><li><a href="global.html#getGreeting">getGreeting</a></li><li><a href="global.html#getGreetingPos">getGreetingPos</a></li><li><a href="global.html#getHTMLContactSelection">getHTMLContactSelection</a></li><li><a href="global.html#getHighestId">getHighestId</a></li><li><a href="global.html#getIncrementedId">getIncrementedId</a></li><li><a href="global.html#getIndexUser">getIndexUser</a></li><li><a href="global.html#getMonogram">getMonogram</a></li><li><a href="global.html#getNameObj">getNameObj</a></li><li><a href="global.html#getNewContactData">getNewContactData</a></li><li><a href="global.html#getNewId">getNewId</a></li><li><a href="global.html#getPath">getPath</a></li><li><a href="global.html#getRadioValue">getRadioValue</a></li><li><a href="global.html#getResponse">getResponse</a></li><li><a href="global.html#getSmallerDate">getSmallerDate</a></li><li><a href="global.html#getSubBar">getSubBar</a></li><li><a href="global.html#getSubtaskElements">getSubtaskElements</a></li><li><a href="global.html#getTargetElement">getTargetElement</a></li><li><a href="global.html#getTaskDateMin">getTaskDateMin</a></li><li><a href="global.html#getTaskEditAssign">getTaskEditAssign</a></li><li><a href="global.html#getTaskEditAssigns">getTaskEditAssigns</a></li><li><a href="global.html#getTaskOutput">getTaskOutput</a></li><li><a href="global.html#getTaskView">getTaskView</a></li><li><a href="global.html#getTaskViewAssign">getTaskViewAssign</a></li><li><a href="global.html#getTaskViewAssigns">getTaskViewAssigns</a></li><li><a href="global.html#getTaskViewSubtasks">getTaskViewSubtasks</a></li><li><a href="global.html#getTopParent">getTopParent</a></li><li><a href="global.html#getTouchDelay">getTouchDelay</a></li><li><a href="global.html#getUserList">getUserList</a></li><li><a href="global.html#getUsername">getUsername</a></li><li><a href="global.html#greetingUser">greetingUser</a></li><li><a href="global.html#groupContactsByFirstLetter">groupContactsByFirstLetter</a></li><li><a href="global.html#guestLogin">guestLogin</a></li><li><a href="global.html#handleErrors">handleErrors</a></li><li><a href="global.html#hasValidDueDate">hasValidDueDate</a></li><li><a href="global.html#hideNoTaskInfo">hideNoTaskInfo</a></li><li><a href="global.html#highlightJoin">highlightJoin</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#init2">init2</a></li><li><a href="global.html#initAddTask">initAddTask</a></li><li><a href="global.html#initAssignSelector">initAssignSelector</a></li><li><a href="global.html#initContacts">initContacts</a></li><li><a href="global.html#initSelector">initSelector</a></li><li><a href="global.html#initSessionMonogram">initSessionMonogram</a></li><li><a href="global.html#inputFilled">inputFilled</a></li><li><a href="global.html#isEqualPassword">isEqualPassword</a></li><li><a href="global.html#isFormValid">isFormValid</a></li><li><a href="global.html#isLogged">isLogged</a></li><li><a href="global.html#isLoginCorrect">isLoginCorrect</a></li><li><a href="global.html#isPasswordCorrect">isPasswordCorrect</a></li><li><a href="global.html#isTLDAvailable">isTLDAvailable</a></li><li><a href="global.html#isTouchMoveAvailable">isTouchMoveAvailable</a></li><li><a href="global.html#kanbanEditRenderTask">kanbanEditRenderTask</a></li><li><a href="global.html#kanbanEditSelector">kanbanEditSelector</a></li><li><a href="global.html#kanbanEditSelectors">kanbanEditSelectors</a></li><li><a href="global.html#loadContacts">loadContacts</a></li><li><a href="global.html#loadData">loadData</a></li><li><a href="global.html#loadFromLocalStorage">loadFromLocalStorage</a></li><li><a href="global.html#loadObjectData">loadObjectData</a></li><li><a href="global.html#loadObjectDataById">loadObjectDataById</a></li><li><a href="global.html#loadSortedContactList">loadSortedContactList</a></li><li><a href="global.html#loadUserFromLocalStorage">loadUserFromLocalStorage</a></li><li><a href="global.html#logOut">logOut</a></li><li><a href="global.html#logedUserMonogram">logedUserMonogram</a></li><li><a href="global.html#login">login</a></li><li><a href="global.html#logout">logout</a></li><li><a href="global.html#markAllFieds">markAllFieds</a></li><li><a href="global.html#markTouchedContainer">markTouchedContainer</a></li><li><a href="global.html#mobileGreeting">mobileGreeting</a></li><li><a href="global.html#moveTouch">moveTouch</a></li><li><a href="global.html#moveTouchPosition">moveTouchPosition</a></li><li><a href="global.html#msgBox">msgBox</a></li><li><a href="global.html#msgfly">msgfly</a></li><li><a href="global.html#mustShowMobileGreeting">mustShowMobileGreeting</a></li><li><a href="global.html#noSubmit">noSubmit</a></li><li><a href="global.html#openAddTask">openAddTask</a></li><li><a href="global.html#openCreateContactDialogMobile">openCreateContactDialogMobile</a></li><li><a href="global.html#openDashboard">openDashboard</a></li><li><a href="global.html#openEditContactDialogMobile">openEditContactDialogMobile</a></li><li><a href="global.html#openKanbanboard">openKanbanboard</a></li><li><a href="global.html#openLogin">openLogin</a></li><li><a href="global.html#openMobileContactDetail">openMobileContactDetail</a></li><li><a href="global.html#openPage">openPage</a></li><li><a href="global.html#openPopUpEdit">openPopUpEdit</a></li><li><a href="global.html#openSignup">openSignup</a></li><li><a href="global.html#openTask">openTask</a></li><li><a href="global.html#openTaskView">openTaskView</a></li><li><a href="global.html#openUserMenu">openUserMenu</a></li><li><a href="global.html#passwordValidationOK">passwordValidationOK</a></li><li><a href="global.html#preFilledInputs">preFilledInputs</a></li><li><a href="global.html#prepareDataset">prepareDataset</a></li><li><a href="global.html#prepareTaskData">prepareTaskData</a></li><li><a href="global.html#putLoginToValue">putLoginToValue</a></li><li><a href="global.html#refreshTask">refreshTask</a></li><li><a href="global.html#register">register</a></li><li><a href="global.html#rememberMe">rememberMe</a></li><li><a href="global.html#removeAllCustomMsg">removeAllCustomMsg</a></li><li><a href="global.html#removeCustomErrorCode">removeCustomErrorCode</a></li><li><a href="global.html#removeCustomMsg">removeCustomMsg</a></li><li><a href="global.html#removeKeyInLocalStorage">removeKeyInLocalStorage</a></li><li><a href="global.html#removeUser">removeUser</a></li><li><a href="global.html#renderContactList">renderContactList</a></li><li><a href="global.html#renderContacts">renderContacts</a></li><li><a href="global.html#renderSubtasks">renderSubtasks</a></li><li><a href="global.html#resizeContainer">resizeContainer</a></li><li><a href="global.html#salutation">salutation</a></li><li><a href="global.html#saveContacts">saveContacts</a></li><li><a href="global.html#saveData">saveData</a></li><li><a href="global.html#saveDataContacts">saveDataContacts</a></li><li><a href="global.html#saveDataUser">saveDataUser</a></li><li><a href="global.html#saveEditTask">saveEditTask</a></li><li><a href="global.html#saveEditedContact">saveEditedContact</a></li><li><a href="global.html#saveEditedSubtask">saveEditedSubtask</a></li><li><a href="global.html#saveObjectData">saveObjectData</a></li><li><a href="global.html#saveObjectDataById">saveObjectDataById</a></li><li><a href="global.html#saveTask">saveTask</a></li><li><a href="global.html#saveToLocalStorage">saveToLocalStorage</a></li><li><a href="global.html#saveUserToLocalStorage">saveUserToLocalStorage</a></li><li><a href="global.html#sendButton">sendButton</a></li><li><a href="global.html#sessionDestroy">sessionDestroy</a></li><li><a href="global.html#sessionLoad">sessionLoad</a></li><li><a href="global.html#sessionSave">sessionSave</a></li><li><a href="global.html#setErrorMsg">setErrorMsg</a></li><li><a href="global.html#setHighestId">setHighestId</a></li><li><a href="global.html#setMinDate">setMinDate</a></li><li><a href="global.html#setStatus">setStatus</a></li><li><a href="global.html#setStyle">setStyle</a></li><li><a href="global.html#setSubtaskScrollBar">setSubtaskScrollBar</a></li><li><a href="global.html#setTouchTime">setTouchTime</a></li><li><a href="global.html#showHiddenDialog">showHiddenDialog</a></li><li><a href="global.html#showMobileGreeting">showMobileGreeting</a></li><li><a href="global.html#showRequiredText">showRequiredText</a></li><li><a href="global.html#showSingleContact">showSingleContact</a></li><li><a href="global.html#sortContacts">sortContacts</a></li><li><a href="global.html#sortContactsByName">sortContactsByName</a></li><li><a href="global.html#startTouch">startTouch</a></li><li><a href="global.html#startTouchSetPosition">startTouchSetPosition</a></li><li><a href="global.html#startTouchSetup">startTouchSetup</a></li><li><a href="global.html#styleElement">styleElement</a></li><li><a href="global.html#styleFormInputs">styleFormInputs</a></li><li><a href="global.html#taskEditToObj">taskEditToObj</a></li><li><a href="global.html#toggleActiveKanbanTask">toggleActiveKanbanTask</a></li><li><a href="global.html#toggleBorder">toggleBorder</a></li><li><a href="global.html#togglePasswordView">togglePasswordView</a></li><li><a href="global.html#toggleSubtaskIcon">toggleSubtaskIcon</a></li><li><a href="global.html#toggleSubtaskState">toggleSubtaskState</a></li><li><a href="global.html#toggleSubtaskStateEvent">toggleSubtaskStateEvent</a></li><li><a href="global.html#unregister">unregister</a></li><li><a href="global.html#updateDashboard">updateDashboard</a></li><li><a href="global.html#updateTask">updateTask</a></li><li><a href="global.html#userExists">userExists</a></li><li><a href="global.html#validateForm">validateForm</a></li><li><a href="global.html#validateUser">validateUser</a></li><li><a href="global.html#warningHTML">warningHTML</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.3</a> on Sun Oct 20 2024 23:54:38 GMT+0200 (Mitteleuropäische Sommerzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
