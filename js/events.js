@@ -224,7 +224,7 @@ function isFormValid(formqs) {
 function enableRedBorder(formqs) {
     let form = document.querySelector(formqs);
     if (!form) return;
-    let inputs = form.querySelectorAll('input-container');    
+    let inputs = form.querySelectorAll('.input-container');    
     for (let input of inputs) {
         input.classList.add("invalid");
     }     
@@ -241,7 +241,7 @@ function enableRedBorder(formqs) {
 function disableRedBorder(formqs) {
     let form = document.querySelector(formqs);
     if (!form) return;
-    let inputs = form.querySelectorAll('input-container');    
+    let inputs = form.querySelectorAll('.input-container');    
     for (let input of inputs) {
         input.classList.remove("invalid");
     }     

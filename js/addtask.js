@@ -58,6 +58,7 @@ async function addNewTask() {
  * @returns - nothing
  */
 function clearTaskInputs() {
+
    document.getElementById("title").value = "";
    document.getElementById("description").value = "";
    document

@@ -273,10 +273,9 @@ async function saveEditedContact(id) {
    let index = getCurrentContact(id);
    let newContact = createNewContactObject(id);
    contacts.splice(index, 1);
-   // await saveContacts();
    contacts.push(newContact);
-   // await saveContacts();
    await saveData("Contacts", contacts);
+   disableRedBorder("#add-contact-form");
    clearInput();
    closeContactCreation();
    await displayContacts();
